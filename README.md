@@ -78,9 +78,9 @@ Die App verwendet eine konsistente **Light Indigo** Farbpalette für ein moderne
 - **Navigation**: "Lets go!" Buttons für Aufgaben-Fortsetzung
 
 ### Belohnungs- und Feedback-System
-- **Schnitzel-System**: 🍖 für erfolgreich abgeschlossene Aufgaben
+- **Schnitzel-System**: 🍪 für erfolgreich abgeschlossene Aufgaben
 - **Kartoffel-Penalty**: 🗑️ bei Zeitüberschreitung
-- **Results Screen**: "You did it!" mit Rewards-Anzeige (2x 🍖 3x 🗑️)
+- **Results Screen**: "You did it!" mit Rewards-Anzeige (2x 🍪 3x 🗑️)
 - **Haptisches Feedback**: Vibration bei Aufgaben-Abschluss
 
 ### Persistierung und Leaderboard
