@@ -6,11 +6,11 @@ interface TimeEntry {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TimerService {
   private timeMap: Map<string, TimeEntry> = new Map([
-    ['Geodata', { givenTime: 300, actualTime: 0 }],
+    ['GeoLocation', { givenTime: 300, actualTime: 0 }],
     ['QrCode', { givenTime: 300, actualTime: 0 }],
     ['DistanceTracking', { givenTime: 300, actualTime: 0 }],
     ['DeviceStatus', { givenTime: 300, actualTime: 0 }],
@@ -69,6 +69,11 @@ export class TimerService {
 
   getTimeMap(): Map<string, TimeEntry> {
     return this.timeMap;
+  }
+
+  getTimeForKey(key: string): string {
+    const entry = this.timeMap.get(key);
+    return entry ? entry.actualTime.toFixed(2) : '0.00';
   }
 
   private clearInterval(): void {
