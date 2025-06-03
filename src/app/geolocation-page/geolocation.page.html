@@ -5,6 +5,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-card>
+    <ion-card-content>
+      <ion-text class="ion-text-center">
+        <h3>Your destination:</h3>
+        <h2>{{ 'Migros Kriens Mattenhof' }}</h2>
+      </ion-text>
+
+      <ion-text class="ion-text-center">
+        <h3>Distance:</h3>
+        <h1>{{ distance() ?? '?' }} m</h1>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Geolocation Page</ion-title>
