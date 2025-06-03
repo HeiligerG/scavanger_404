@@ -12,9 +12,9 @@ import { TaskCompleteAlertComponent } from '../components/task-complete-alert/ta
 import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
-  selector: 'app-geolocation-page',
-  templateUrl: 'geolocation.page.html',
-  styleUrls: ['geolocation.page.scss'],
+  selector: 'app-device-status',
+  templateUrl: './device-status.page.html',
+  styleUrls: ['./device-status.page.scss'],
   imports: [
     IonHeader,
     IonToolbar,
@@ -24,12 +24,12 @@ import { FooterComponent } from '../components/footer/footer.component';
     FooterComponent,
   ],
 })
-export class GeolocationPage implements OnInit {
+export class DeviceStatusPage implements OnInit {
   timerService = inject(TimerService);
   router = inject(Router);
 
   completed = false;
-  nextRoute = 'tabs/qr-code';
+  nextRoute = 'tabs/dashboard';
 
   ngOnInit() {
     this.timerService.startTimer();
@@ -45,7 +45,7 @@ export class GeolocationPage implements OnInit {
     this.router.navigate([this.nextRoute]);
   }
   SkipTask() {
-    this.timerService.skipTimer('GeoLocation');
+    this.timerService.skipTimer('DeviceStatus');
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }

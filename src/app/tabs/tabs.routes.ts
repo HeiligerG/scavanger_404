@@ -9,17 +9,35 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () =>
-          import('../dashboard-page/dashboard.page').then((m) => m.DashboardPage),
+          import('../dashboard-page/dashboard.page').then(
+            (m) => m.DashboardPage
+          ),
       },
       {
         path: 'geolocation',
         loadComponent: () =>
-          import('../geolocation-page/geolocation.page').then((m) => m.GeolocationPage),
+          import('../geolocation-page/geolocation.page').then(
+            (m) => m.GeolocationPage
+          ),
       },
       {
         path: 'qr-code',
         loadComponent: () =>
           import('../qrcode-page/qrcode.page').then((m) => m.QrcodePage),
+      },
+      {
+        path: 'device-status',
+        loadComponent: () =>
+          import('../device-status-page/device-status.page').then(
+            (m) => m.DeviceStatusPage
+          ),
+      },
+      {
+        path: 'distance-tracking',
+        loadComponent: () =>
+          import('../distance-tracking-page/distance-tracking.page').then(
+            (m) => m.DistanceTrackingPage
+          ),
       },
       {
         path: '',

@@ -11,3 +11,15 @@
     </ion-toolbar>
   </ion-header>
 </ion-content>
+
+<app-footer
+  (backToDashboard)="BackToDashboard()"
+  (skipTask)="SkipTask()"
+></app-footer>
+
+<app-task-complete-alert
+  [showAlert]="completed"
+  currentTask="GeoLocation"
+  (quitClicked)="BackToDashboard()"
+  (continueClicked)="NextTask()"
+></app-task-complete-alert>

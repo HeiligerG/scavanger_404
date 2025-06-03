@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { PermissionService } from '../services/permission.service';
 import { Camera } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
+
 import {
   IonHeader,
   IonToolbar,
@@ -17,12 +18,10 @@ import {
 } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.page.html',
-  styleUrls: ['./dashboard.page.scss'],
+  selector: 'app-dashboard-page',
+  templateUrl: 'dashboard.page.html',
+  styleUrls: ['dashboard.page.scss'],
   imports: [
-    CommonModule,
-    FormsModule,
     IonHeader,
     IonToolbar,
     IonTitle,
