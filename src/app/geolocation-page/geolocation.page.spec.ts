@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Tab3Page } from './tab3.page';
+import { GeolocationPage } from './geolocation.page';
 
-describe('Tab3Page', () => {
-  let component: Tab3Page;
-  let fixture: ComponentFixture<Tab3Page>;
+describe('GeolocationPage', () => {
+  let component: GeolocationPage;
+  let fixture: ComponentFixture<GeolocationPage>;
 
   beforeEach(async () => {
-    fixture = TestBed.createComponent(Tab3Page);
+    fixture = TestBed.createComponent(GeolocationPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
