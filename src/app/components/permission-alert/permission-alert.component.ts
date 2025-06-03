@@ -1,14 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { TimerService } from '../../services/timer.service';
 
 @Component({
   selector: 'app-permission-alert',
   templateUrl: './permission-alert.component.html',
   styleUrls: ['./permission-alert.component.scss'],
 })
-export class PermissionAlertComponent  implements OnInit {
+export class PermissionAlertComponent  implements OnChanges {
+  showAlert = input.required<boolean>();
+  currentTask = input.required<string>();
+  alertController = inject(AlertController);
+  timerService = inject(TimerService);
 
-  constructor() { }
+  async ngOnChanges(changes: SimpleChanges) {
+    if (changes['showAlert']?.currentValue === true) {
+      this.timerService.endTimer(this.currentTask());
+      await this.presentAlert();
+    }
+  }
 
-  ngOnInit() {}
+  private async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'You did it!!',
+      subHeader: 'Your Time was:',
+      message: this.timerService.getTimeForKey(this.currentTask()),
+      cssClass: 'custom-alert',
+      buttons: [
+        {
+          text: 'Quit',
+          role: 'cancel',
+          handler: () => {
+            console.log('Quit clicked');
+          },
+        },
+        {
+          text: 'Continue',
+          role: 'confirm',
+          handler: () => {
+            console.log('Continue clicked');
+          },
+        },
+      ],
+    });
 
+    await alert.present();
+  }
 }

@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<!-- <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Dashboard</ion-title>
@@ -14,4 +14,36 @@
 
   <button (click)="showAlert = !showAlert">show</button>
   <app-task-complete-alert [showAlert]="showAlert" currentTask="GeoLocation"></app-task-complete-alert>
+</ion-content> -->
+
+<ion-content>
+  <div class="dashboard-content">
+    <h1>Dashboard</h1>
+    <p>Previous Completions.</p>
+    
+    <div class="start-run-card">
+      <h2>START YOUR RUN</h2>
+      <p>Enter Name to start</p>
+      
+      <ion-item class="name-input">
+        <ion-input 
+          [(ngModel)]="runnerName" 
+          placeholder="Name ..."
+          type="text">
+        </ion-input>
+      </ion-item>
+      
+      <ion-button 
+        expand="block" 
+        (click)="onStartRun()"
+        class="start-button">
+        Start
+      </ion-button>
+    </div>
+    
+    <!-- Previous Runs -->
+    <div class="previous-runs">
+      <!-- Deine bestehenden Run-Einträge -->
+    </div>
+  </div>
 </ion-content>
