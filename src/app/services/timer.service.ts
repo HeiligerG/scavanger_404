@@ -88,4 +88,19 @@ export class TimerService {
     this.countdown.set(0);
     this.startTimestamp = null;
   }
+
+  skipTimer(key: string): void {
+    if (!this.timeMap.has(key)) {
+      console.warn(`Key "${key}" not found in timeMap.`);
+      return;
+    }
+
+    const entry = this.timeMap.get(key)!;
+    entry.actualTime = 0;
+    this.timeMap.set(key, entry);
+
+    this.clearInterval();
+    this.countdown.set(0);
+    this.startTimestamp = null;
+  }
 }

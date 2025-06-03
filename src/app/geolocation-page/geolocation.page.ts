@@ -9,6 +9,7 @@ import {
   IonContent,
 } from '@ionic/angular/standalone';
 import { TaskCompleteAlertComponent } from '../components/task-complete-alert/task-complete-alert.component';
+import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-geolocation-page',
@@ -20,6 +21,7 @@ import { TaskCompleteAlertComponent } from '../components/task-complete-alert/ta
     IonTitle,
     IonContent,
     TaskCompleteAlertComponent,
+    FooterComponent,
   ],
 })
 export class GeolocationPage implements OnInit {
@@ -27,14 +29,29 @@ export class GeolocationPage implements OnInit {
   router = inject(Router);
 
   completed = false;
-  
+  nextRoute = 'tabs/qr-code';
+
   ngOnInit() {
     this.timerService.startTimer();
   }
   BackToDashboard() {
+    this.timerService.resetTimer();
+    this.BlurActiveElement();
+
     this.router.navigate(['tabs/dashboard']);
   }
   NextTask() {
-    this.router.navigate(['tabs/qr-code']);
+    this.BlurActiveElement();
+    this.router.navigate([this.nextRoute]);
+  }
+  SkipTask() {
+    this.timerService.skipTimer('GeoLocation');
+    this.BlurActiveElement();
+    this.router.navigate([this.nextRoute]);
+  }
+
+  BlurActiveElement() {
+    const active = document.activeElement as HTMLElement | null;
+    active?.blur();
   }
 }

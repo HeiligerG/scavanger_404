@@ -14,6 +14,7 @@ import {
   IonButton,
 } from '@ionic/angular/standalone';
 import { TaskCompleteAlertComponent } from '../components/task-complete-alert/task-complete-alert.component';
+import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-qrcode-page',
@@ -27,6 +28,7 @@ import { TaskCompleteAlertComponent } from '../components/task-complete-alert/ta
     IonContent,
     IonButton,
     TaskCompleteAlertComponent,
+    FooterComponent,
   ],
 })
 export class QrcodePage {
@@ -34,6 +36,8 @@ export class QrcodePage {
   router = inject(Router);
 
   completed = false;
+  nextRoute = 'tabs/geolocation';
+
   qrResult?: string;
   message?: string;
 
@@ -41,12 +45,24 @@ export class QrcodePage {
     this.timerService.startTimer();
   }
   BackToDashboard() {
-    this.completed = false;
+    this.timerService.resetTimer();
+    this.BlurActiveElement();
+
     this.router.navigate(['tabs/dashboard']);
   }
   NextTask() {
-    this.completed = false;
-    this.router.navigate(['tabs/geolocation']);
+    this.BlurActiveElement();
+    this.router.navigate([this.nextRoute]);
+  }
+  SkipTask() {
+    this.timerService.skipTimer('QrCode');
+    this.BlurActiveElement();
+    this.router.navigate([this.nextRoute]);
+  }
+
+  BlurActiveElement() {
+    const active = document.activeElement as HTMLElement | null;
+    active?.blur();
   }
 
   async scanQrCode() {

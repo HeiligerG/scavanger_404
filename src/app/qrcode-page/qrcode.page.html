@@ -20,6 +20,10 @@
   </div>
 </ion-content>
 
+<app-footer
+  (backToDashboard)="BackToDashboard()"
+  (skipTask)="SkipTask()"
+></app-footer>
 
 <app-task-complete-alert
   [showAlert]="completed"
