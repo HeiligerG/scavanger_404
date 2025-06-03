@@ -1,4 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,18 @@ export class LocationService {
     if (!current) return null;
     return getDistanceInMeters(current.lat, current.lon, target.lat, current.lon);
   });
+
+  async startTracking() {
+    await Geolocation.watchPosition({}, (pos, err) => {
+      if (err) return;
+      if (pos) {
+        this.currentPosition.set({
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        });
+      }
+    });
+  }
 }
 
 function getDistanceInMeters(lat1: number, lon1: number, lat2: number, lon2: number) {
@@ -28,5 +41,5 @@ function getDistanceInMeters(lat1: number, lon1: number, lat2: number, lon2: num
             Math.sin(Δλ / 2) ** 2;
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  return Math.round(R * c); // in Metern
+  return Math.round(R * c);
 }
