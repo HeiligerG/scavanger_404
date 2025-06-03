@@ -1,17 +1,19 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  max-width: 500px;
-  margin: 0 auto;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.qr-image {
-  max-width: 80%;
-  height: auto;
+.result-box {
   margin-top: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 1.2em;
+}
+
+.success-icon {
+  font-size: 2em;
+  color: green;
+}
+
+.error-icon {
+  font-size: 2em;
+  color: red;
 }
