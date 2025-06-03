@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { LocationService } from '../services/location.service';
 import { TimerService } from '../services/timer.service';
 import { Router } from '@angular/router';
 
@@ -54,4 +55,6 @@ export class GeolocationPage implements OnInit {
     const active = document.activeElement as HTMLElement | null;
     active?.blur();
   }
+
+
 }
