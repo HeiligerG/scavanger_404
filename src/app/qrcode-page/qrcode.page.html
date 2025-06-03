@@ -12,10 +12,10 @@
   </ion-header>
 
   <div class="wrapper ion-text-center">
-    @if (imagePath) {
-    <img [src]="imagePath" alt="Captured Image" class="qr-image" />
-    } @else {
-    <ion-button (click)="takePhoto()">Scan QR Code</ion-button>
+    <ion-button (click)="scanQrCode()">Scan QR Code</ion-button>
+
+    @if (message){
+    <div style="margin-top: 20px; font-size: 1.2em">{{ message }}</div>
     }
   </div>
 </ion-content>
