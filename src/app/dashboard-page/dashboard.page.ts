@@ -22,6 +22,7 @@ import {
   templateUrl: 'dashboard.page.html',
   styleUrls: ['dashboard.page.scss'],
   imports: [
+    FormsModule,
     IonHeader,
     IonToolbar,
     IonTitle,
