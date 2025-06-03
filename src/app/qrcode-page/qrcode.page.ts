@@ -36,7 +36,7 @@ export class QrcodePage {
   router = inject(Router);
 
   completed = false;
-  nextRoute = 'tabs/geolocation';
+  nextRoute = 'tabs/distance-tracking';
 
   qrResult?: string;
   message?: string;
