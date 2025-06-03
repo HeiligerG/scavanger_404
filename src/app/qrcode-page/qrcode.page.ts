@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TimerService } from '../services/timer.service';
+import { Router } from '@angular/router';
 import {
   CapacitorBarcodeScanner,
   CapacitorBarcodeScannerTypeHint,
@@ -10,19 +12,42 @@ import {
   IonTitle,
   IonContent,
   IonButton,
-  IonIcon,
 } from '@ionic/angular/standalone';
+import { TaskCompleteAlertComponent } from '../components/task-complete-alert/task-complete-alert.component';
 
 @Component({
   selector: 'app-qrcode-page',
   templateUrl: './qrcode.page.html',
   styleUrls: ['./qrcode.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    TaskCompleteAlertComponent,
+  ],
 })
 export class QrcodePage {
+  timerService = inject(TimerService);
+  router = inject(Router);
+
+  completed = false;
   qrResult?: string;
   message?: string;
+
+  ngOnInit() {
+    this.timerService.startTimer();
+  }
+  BackToDashboard() {
+    this.completed = false;
+    this.router.navigate(['tabs/dashboard']);
+  }
+  NextTask() {
+    this.completed = false;
+    this.router.navigate(['tabs/geolocation']);
+  }
 
   async scanQrCode() {
     try {
@@ -41,7 +66,7 @@ export class QrcodePage {
 
         if (ScanResult === 'M335@ICT-BZ') {
           this.runDummyFunction();
-          this.message = '🎉 You did it!!';
+          this.completed = true;
         } else {
           this.message = '❌ Sorry, that is the wrong one';
         }

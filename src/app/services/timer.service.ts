@@ -82,4 +82,10 @@ export class TimerService {
       this.intervalId = null;
     }
   }
+
+  resetTimer(){
+    this.clearInterval();
+    this.countdown.set(0);
+    this.startTimestamp = null;
+  }
 }

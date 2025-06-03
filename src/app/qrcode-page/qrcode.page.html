@@ -19,3 +19,11 @@
     }
   </div>
 </ion-content>
+
+
+<app-task-complete-alert
+  [showAlert]="completed"
+  currentTask="GeoLocation"
+  (quitClicked)="BackToDashboard()"
+  (continueClicked)="NextTask()"
+></app-task-complete-alert>

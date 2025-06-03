@@ -2,8 +2,10 @@ import {
   Component,
   inject,
   input,
+  Output,
   OnChanges,
   SimpleChanges,
+  EventEmitter,
 } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TimerService } from '../../services/timer.service';
@@ -18,6 +20,9 @@ export class TaskCompleteAlertComponent implements OnChanges {
   currentTask = input.required<string>();
   alertController = inject(AlertController);
   timerService = inject(TimerService);
+
+  @Output() quitClicked = new EventEmitter<void>();
+  @Output() continueClicked = new EventEmitter<void>();
 
   async ngOnChanges(changes: SimpleChanges) {
     if (changes['showAlert']?.currentValue === true) {
@@ -37,14 +42,14 @@ export class TaskCompleteAlertComponent implements OnChanges {
           text: 'Quit',
           role: 'cancel',
           handler: () => {
-            console.log('Quit clicked');
+            this.quitClicked.emit();
           },
         },
         {
           text: 'Continue',
           role: 'confirm',
           handler: () => {
-            console.log('Continue clicked');
+            this.continueClicked.emit();
           },
         },
       ],
