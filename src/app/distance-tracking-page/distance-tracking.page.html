@@ -1,23 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>QR Code</ion-title>
+    <ion-title>Distance Tracking</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">QR Code</ion-title>
+      <ion-title size="large">Distance Tracking</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <div class="wrapper ion-text-center">
-    <ion-button (click)="scanQrCode()">Scan QR Code</ion-button>
-
-    @if (message){
-    <div style="margin-top: 20px; font-size: 1.2em">{{ message }}</div>
-    }
-  </div>
 </ion-content>
 
 <app-footer
