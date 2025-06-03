@@ -50,20 +50,25 @@ export class DashboardPage implements OnInit {
   }
 
   async onStartRun() {
-    console.log('Start button clicked, runner name:', this.runnerName);
+  try {
+    // Request both location and camera permissions
+    const geoPermStatus = await Geolocation.requestPermissions();
+    const camPermStatus = await Camera.requestPermissions();
 
-    const checkPermissions = async () => {
-      const status = await Camera.checkPermissions();
-      if (status.camera !== 'granted') {
-        await Camera.requestPermissions();
-      }
+    const locationGranted = geoPermStatus.location === 'granted';
+    const cameraGranted = camPermStatus.camera === 'granted';
 
-      const requestLocation = async () => {
-        const perm = await Geolocation.requestPermissions();
+    if (locationGranted && cameraGranted) {
+      // ✅ All permissions granted, go to geolocation page
+      this.router.navigate(['/tabs/geolocation']);
+    } else {
+      // ❌ At least one permission denied, go to dashboard
+      this.router.navigate(['/tabs/dashboard']);
+    }
 
-        const coords = await Geolocation.getCurrentPosition();
-        console.log('Your location:', coords);
-      };
-    };
+  } catch (err) {
+    console.error('Error requesting permissions:', err);
+      this.router.navigate(['/tabs/dashboard']);
   }
+}
 }
