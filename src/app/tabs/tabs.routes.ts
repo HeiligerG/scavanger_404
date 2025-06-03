@@ -17,6 +17,11 @@ export const routes: Routes = [
           import('../geolocation-page/geolocation.page').then((m) => m.GeolocationPage),
       },
       {
+        path: 'qr-code',
+        loadComponent: () =>
+          import('../qrcode-page/qrcode.page').then((m) => m.QrcodePage),
+      },
+      {
         path: '',
         redirectTo: '/tabs/dashboard',
         pathMatch: 'full',
