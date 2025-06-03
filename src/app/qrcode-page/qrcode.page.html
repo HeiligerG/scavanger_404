@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>QR Code</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">QR Code</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="wrapper ion-text-center">
+    @if (imagePath) {
+    <img [src]="imagePath" alt="Captured Image" class="qr-image" />
+    } @else {
+    <ion-button (click)="takePhoto()">Scan QR Code</ion-button>
+    }
+  </div>
+</ion-content>
