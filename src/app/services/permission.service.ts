@@ -61,12 +61,7 @@ export class PermissionService {
     const alert = await this.alertController.create({
       header: 'Permissions Required',
       subHeader: 'This app needs access to:',
-      message: `
-        📷 <strong>Camera</strong><br>
-        Take photos and scan documents<br><br>
-        📍 <strong>Location</strong><br>
-        Find nearby locations and services
-      `,
+      message: '📍 Location: Track your running route and distance\n\n📷 Camera: Take photos during your run',
       cssClass: 'custom-alert',
       buttons: [
         {
