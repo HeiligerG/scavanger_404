@@ -1,6 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 
+// TODO: Besseres Error handling
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,7 @@ export class LocationService {
     return getDistanceInMeters(current.lat, current.lon, target.lat, current.lon);
   });
 
+  // TODO: Permission check vlt durch global definierte Funtkion
   async startTracking() {
     await Geolocation.watchPosition({}, (pos, err) => {
       if (err) return;
@@ -27,6 +29,7 @@ export class LocationService {
       }
     });
   }
+  // TODO: Ich bin mir nicht sicher aber es benötigt vlt auch eine stopTracking function
 }
 
 function getDistanceInMeters(lat1: number, lon1: number, lat2: number, lon2: number) {
