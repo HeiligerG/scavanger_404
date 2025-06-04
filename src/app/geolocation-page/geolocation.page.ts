@@ -1,15 +1,19 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { LocationService } from '../services/location.service';
 import { TimerService } from '../services/timer.service';
 import { Router } from '@angular/router';
 
+import { TaskCompleteAlertComponent } from '../components/task-complete-alert/task-complete-alert.component';
+import { FooterComponent } from '../components/footer/footer.component';
 import {
   IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
+  IonText,
+  IonCard,
+  IonCardContent,
 } from '@ionic/angular/standalone';
-import { TaskCompleteAlertComponent } from '../components/task-complete-alert/task-complete-alert.component';
-import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-geolocation-page',
@@ -20,30 +24,43 @@ import { FooterComponent } from '../components/footer/footer.component';
     IonToolbar,
     IonTitle,
     IonContent,
+    IonText,
+    IonCard,
+    IonCardContent,
     TaskCompleteAlertComponent,
     FooterComponent,
   ],
 })
+
 export class GeolocationPage implements OnInit {
-  timerService = inject(TimerService);
-  router = inject(Router);
+  private location = inject(LocationService);
+
+  readonly distance = this.location.distance;
+  readonly target = this.location.targetPosition;
+
+  readonly timerService = inject(TimerService);
+  readonly router = inject(Router);
 
   completed = false;
   nextRoute = 'tabs/qr-code';
 
   ngOnInit() {
     this.timerService.startTimer();
+    this.location.startTracking();
   }
+
   BackToDashboard() {
     this.timerService.resetTimer();
     this.BlurActiveElement();
 
     this.router.navigate(['tabs/dashboard']);
   }
+
   NextTask() {
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }
+
   SkipTask() {
     this.timerService.skipTimer('GeoLocation');
     this.BlurActiveElement();
@@ -54,4 +71,6 @@ export class GeolocationPage implements OnInit {
     const active = document.activeElement as HTMLElement | null;
     active?.blur();
   }
+
+
 }
