@@ -112,24 +112,32 @@ export class TimerService {
     this.startTimestamp = null;
   }
 
-  getResult(): string {
-    let cookieCount = 0;
-    let trashCount = 0;
+  getResultCounts(): { cookie: number; trash: number } {
+    let cookie = 0;
+    let trash = 0;
 
     for (const { actualTime, givenTime } of this.timeMap.values()) {
       if (actualTime === 0) {
-        trashCount++;
-        continue;
-      }
-
-      const performance = actualTime / givenTime;
-      if (performance <= 1.1) {
-        cookieCount++;
+        trash++;
       } else {
-        trashCount++;
+        const performance = actualTime / givenTime;
+        if (performance <= 1.1) {
+          cookie++;
+        } else {
+          trash++;
+        }
       }
     }
 
-    return `${cookieCount}x 🍪 ${trashCount}x 🗑️`;
+    return { cookie, trash };
+  }
+
+  clearTimeMap(): void {
+    this.timeMap.clear();
+    this.timeMap.set('GeoLocation', { givenTime: 300, actualTime: 0 });
+    this.timeMap.set('QrCode', { givenTime: 300, actualTime: 0 });
+    this.timeMap.set('DistanceTracking', { givenTime: 300, actualTime: 0 });
+    this.timeMap.set('DeviceStatus', { givenTime: 300, actualTime: 0 });
+    this.resetTimer();
   }
 }
