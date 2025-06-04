@@ -14,7 +14,7 @@ export class LocationService {
     const current = this.currentPosition();
     const target = this.targetPosition();
     if (!current) return null;
-    return getDistanceInMeters(current.lat, current.lon, target.lat, current.lon);
+    return getDistanceInMeters(current.lat, current.lon, target.lat, target.lon);
   });
 
   // TODO: Permission check vlt durch global definierte Funtkion

@@ -46,6 +46,7 @@ export class GeolocationPage implements OnInit {
 
   ngOnInit() {
     this.timerService.startTimer();
+    this.location.startTracking();
   }
 
   BackToDashboard() {
