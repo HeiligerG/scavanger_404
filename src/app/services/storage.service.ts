@@ -36,7 +36,7 @@ export class StorageService {
       return a.totalTime - b.totalTime;
     });
 
-    return sorted.slice(0, 5);
+    return sorted.slice(0, 3);
   }
 
   async clearStorage(): Promise<void> {
