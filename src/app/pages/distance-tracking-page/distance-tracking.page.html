@@ -5,12 +5,48 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Distance Tracking</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+  <div class="tracking-container">
+    <div class="progress-section">
+      <h2>Laufe 20 Meter</h2>
+      
+      <div class="distance-display">
+        <div class="total-distance">
+          <span class="distance-value">{{ totalDistance() }}</span>
+          <span class="distance-unit">m</span>
+        </div>
+        <div class="distance-label">Gelaufene Distanz</div>
+      </div>
+
+      <div class="progress-bar">
+        <div 
+          class="progress-fill" 
+          [style.width.%]="Math.min((totalDistance() / 20) * 100, 100)">
+        </div>
+      </div>
+      
+      <div class="progress-text">
+        {{ totalDistance() }} / 20 Meter
+      </div>
+    </div>
+
+    @if (currentPosition()) {
+      <div class="current-position">
+        <h3>Aktuelle Position</h3>
+        <p>Latitude: {{ currentPosition()!.lat | number:'1.6-6' }}</p>
+        <p>Longitude: {{ currentPosition()!.lon | number:'1.6-6' }}</p>
+      </div>
+    }
+
+    <div class="status-section">
+      <div class="status" [class.completed]="completed">
+        @if (!completed) {
+          <span>🚶‍♂️ Laufe weiter...</span>
+        } @else {
+          <span>✅ Ziel erreicht!</span>
+        }
+      </div>
+    </div>
+  </div>
 
 <app-footer
   (backToDashboard)="BackToDashboard()"
