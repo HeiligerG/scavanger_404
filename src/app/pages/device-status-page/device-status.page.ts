@@ -1,28 +1,29 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TimerService } from '../../services/timer.service';
 import { Router } from '@angular/router';
 import { Device } from '@capacitor/device';
+import { TimerService } from '../../services/timer.service';
 
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
+  IonCol,
   IonContent,
   IonGrid,
+  IonHeader,
   IonRow,
-  IonCol,
+  IonSpinner,
   IonText,
-  IonSpinner, 
-  IonIcon,
-  } from '@ionic/angular/standalone';
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular/standalone';
+import { StorageService } from 'src/app/services/storage.service';
+import { UserService } from 'src/app/services/user.service';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { TaskCompleteAlertComponent } from "../../components/task-complete-alert/task-complete-alert.component";
+import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
 
 @Component({
   selector: 'app-device-status',
   templateUrl: './device-status.page.html',
   styleUrls: ['./device-status.page.scss'],
-  imports: [IonIcon, 
+  imports: [
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -34,11 +35,12 @@ import { TaskCompleteAlertComponent } from "../../components/task-complete-alert
     IonText,
     IonSpinner,
     TaskCompleteAlertComponent,
-    IonIcon,
-],
+  ],
 })
 export class DeviceStatusPage implements OnInit {
   timerService = inject(TimerService);
+  storageService = inject(StorageService);
+  userService = inject(UserService);
   router = inject(Router);
 
   completed = false;
@@ -57,13 +59,21 @@ export class DeviceStatusPage implements OnInit {
     this.router.navigate(['/dashboard']);
   }
   submitScavange() {
+    const results = this.timerService.getResultCounts();
+    this.storageService.saveGameData({
+      name: this.userService.runnerName(),
+      cookies: results.cookie,
+      trash: results.trash,
+      totalTime: this.timerService.getTotalTime(),
+    });
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }
-  SkipTask() {
+  finalSkip() {
     this.timerService.skipTimer('DeviceStatus');
     this.BlurActiveElement();
-    this.router.navigate([this.nextRoute]);
+    this.clearBatteryPolling();
+    this.completed = true;
   }
 
   BlurActiveElement() {
