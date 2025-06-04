@@ -1,35 +1,57 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title> Dashboard </ion-title>
+    <ion-title>🏃 Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="dashboard-content">
-    <h1>Dashboard</h1>
-    <p>Previous Completions.</p>
-    
-    <div class="start-run-card">
-      <h2>START YOUR RUN</h2>
-      <p>Enter Name to start</p>
-      
-      <ion-item class="name-input">
-        <ion-input 
-          [(ngModel)]="runnerName" 
-          placeholder="Name ..."
-          type="text">
-        </ion-input>
-      </ion-item>
-      
-      <ion-button 
-        expand="block" 
-        (click)="onStartRun()"
-        class="start-button">
-        Start
-      </ion-button>
+  <div class="dashboard-content ion-padding">
+    <div class="welcome-section">
+      <h1>Hello, {{ runnerName() || 'Runner' }}! 👋</h1>
+      <p>Ready to start your next scavenger hunt?</p>
     </div>
-    
-    <div class="previous-runs">
-    </div>
+
+    <ion-grid>
+      <ion-row class="ion-align-items-center ion-justify-content-between">
+        <ion-col size="12" size-md="8">
+          <ion-item lines="none">
+            <ion-input
+              [(ngModel)]="runnerName"
+              placeholder="Enter your name"
+              type="text"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4">
+          <ion-button expand="block" (click)="onStartRun()"
+            >🚀 Start Run</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- LEADERBOARD -->
+    <ion-card class="leaderboard-card">
+      <ion-card-header>
+        <ion-card-title>Leaderboard</ion-card-title>
+        <ion-card-subtitle>Previous Runs</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-list class="scrollable-list">
+        @for (run of previousRuns; track $index) {
+        <ion-item>
+          <ion-label>
+            <h2>{{ $index + 1 }}. {{ run.name }}</h2>
+            <p>
+              Cookies: 🍪 {{ run.cookies }} | Trash: 🗑️ {{ run.trash }} | Total
+              Time: {{ formatTime(run.totalTime) }}
+            </p>
+          </ion-label>
+        </ion-item>
+        }
+      </ion-list>
+    </ion-card>
   </div>
 </ion-content>

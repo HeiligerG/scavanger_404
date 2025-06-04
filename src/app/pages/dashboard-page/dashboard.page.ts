@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Camera } from '@capacitor/camera';
@@ -12,6 +12,15 @@ import {
   IonItem,
   IonTitle,
   IonToolbar,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonList,
+  IonLabel,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -27,17 +36,26 @@ import {
     IonItem,
     IonInput,
     IonButton,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonList,
+    IonLabel,
   ],
 })
 export class DashboardPage implements OnInit {
   private router = inject(Router);
 
-  runnerName: string = '';
+  runnerName = signal('');
 
   previousRuns = [
-    { name: 'Jürg Jüngster', completions: '2x', difficulty: '🥉', level: '3x' },
-    { name: 'Jürg Jüngster', completions: '2x', difficulty: '🥉', level: '3x' },
-    { name: 'Jürg Jüngster', completions: '2x', difficulty: '🥉', level: '3x' },
+    { name: 'Jürg Jüngster', cookies: 2, trash: 2, totalTime: 112 },
+    { name: 'Jürg Jüngster', cookies: 2, trash: 2, totalTime: 112 },
+    { name: 'Jürg Jüngster', cookies: 2, trash: 2, totalTime: 112 },
   ];
 
   ngOnInit() {
@@ -61,5 +79,15 @@ export class DashboardPage implements OnInit {
       console.error('Error requesting permissions:', err);
       this.router.navigate(['/dashboard']);
     }
+  }
+
+  formatTime(totalSeconds: number): string {
+    if (isNaN(totalSeconds)) return 'Invalid time';
+
+    const roundedSeconds = Math.floor(totalSeconds);
+    const mins = Math.floor(roundedSeconds / 60);
+    const secs = roundedSeconds % 60;
+
+    return `${mins}m ${secs}s`;
   }
 }

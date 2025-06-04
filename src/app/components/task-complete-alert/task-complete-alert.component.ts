@@ -1,7 +1,7 @@
 import {
   Component,
   inject,
-  input,
+  Input,
   Output,
   OnChanges,
   SimpleChanges,
@@ -15,9 +15,10 @@ import { TimerService } from '../../services/timer.service';
   templateUrl: './task-complete-alert.component.html',
 })
 export class TaskCompleteAlertComponent implements OnChanges {
-  showAlert = input.required<boolean>();
-  currentTask = input.required<string>();
-  finalOne = input<boolean>(false);
+  @Input() showAlert!: boolean;
+  @Input() currentTask!: string;
+  @Input() finalOne = false;
+
   alertController = inject(AlertController);
   timerService = inject(TimerService);
 
@@ -27,8 +28,8 @@ export class TaskCompleteAlertComponent implements OnChanges {
 
   async ngOnChanges(changes: SimpleChanges) {
     if (changes['showAlert']?.currentValue === true) {
-      this.timerService.endTimer(this.currentTask());
-      if (this.finalOne()) {
+      this.timerService.endTimer(this.currentTask);
+      if (this.finalOne) {
         await this.presentFinalAlert();
         return;
       }
@@ -41,7 +42,7 @@ export class TaskCompleteAlertComponent implements OnChanges {
       header: 'You did it!!',
       subHeader: 'Your Time was:',
       message: this.formatTime(
-        this.timerService.getTimeForKey(this.currentTask())
+        this.timerService.getTimeForKey(this.currentTask)
       ),
       cssClass: 'custom-alert',
       buttons: [
@@ -67,15 +68,15 @@ export class TaskCompleteAlertComponent implements OnChanges {
 
   private async presentFinalAlert() {
     const totalTime = this.timerService.getTotalTime();
-    const reward = this.timerService.getResult();
+    const result = this.timerService.getResultCounts();
 
-    const message =
-      `Total Time: ${this.formatTime(totalTime)}\n` + `Reward: ${reward}`;
+    const message = `Total Time: ${this.formatTime(totalTime)}\n` +
+                    `Cookies: 🍪 ${result.cookie} | Trash: 🗑️ ${result.trash}`;
 
     const alert = await this.alertController.create({
       header: 'Scavenge Complete!',
       subHeader: `Total Time: ${this.formatTime(totalTime)}`,
-      message: `Reward: ${reward}`,
+      message,
       cssClass: 'custom-alert',
       buttons: [
         {
