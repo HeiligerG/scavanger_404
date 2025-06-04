@@ -12,6 +12,7 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
@@ -29,6 +30,7 @@ import { TaskCompleteAlertComponent } from '../../components/task-complete-alert
     IonButton,
     TaskCompleteAlertComponent,
     FooterComponent,
+    IonIcon,
   ],
 })
 export class QrcodePage {

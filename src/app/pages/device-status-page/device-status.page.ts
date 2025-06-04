@@ -12,8 +12,9 @@ import {
   IonRow,
   IonCol,
   IonText,
-  IonSpinner
-} from '@ionic/angular/standalone';
+  IonSpinner, 
+  IonIcon,
+  } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TaskCompleteAlertComponent } from "../../components/task-complete-alert/task-complete-alert.component";
 
@@ -21,7 +22,7 @@ import { TaskCompleteAlertComponent } from "../../components/task-complete-alert
   selector: 'app-device-status',
   templateUrl: './device-status.page.html',
   styleUrls: ['./device-status.page.scss'],
-  imports: [
+  imports: [IonIcon, 
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -32,7 +33,8 @@ import { TaskCompleteAlertComponent } from "../../components/task-complete-alert
     IonCol,
     IonText,
     IonSpinner,
-    TaskCompleteAlertComponent
+    TaskCompleteAlertComponent,
+    IonIcon,
 ],
 })
 export class DeviceStatusPage implements OnInit {
