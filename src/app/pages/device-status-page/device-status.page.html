@@ -10,16 +10,45 @@
       <ion-title size="large">Device Status</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-grid class="ion-padding">
+    <ion-row>
+      <ion-col size="12">
+        <ion-text color="medium">
+          <h2>Please Connect Your Device to a Charger</h2>
+          <p>
+            This task will complete automatically as soon as your device is
+            connected to a power source.
+          </p>
+          <p>
+            Make sure your charger is properly connected and wait for the system
+            to detect that your device is charging.
+          </p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-margin-top">
+      <ion-col size="12" class="ion-text-center">
+        <ion-spinner name="dots"></ion-spinner>
+        <p class="ion-text-center ion-padding-top">
+          Waiting for charging status...
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <app-footer
   (backToDashboard)="BackToDashboard()"
   (skipTask)="SkipTask()"
-></app-footer>
+  [finalOne]="true"
+/>
 
 <app-task-complete-alert
   [showAlert]="completed"
   currentTask="DeviceStatus"
   (quitClicked)="BackToDashboard()"
-  (continueClicked)="NextTask()"
-></app-task-complete-alert>
+  (submitScavenge)="submitScavange()"
+  [finalOne]="true"
+/>
