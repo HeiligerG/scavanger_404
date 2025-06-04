@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, effect } from '@angular/core';
 import { LocationService } from '../../services/location.service';
 import { TimerService } from '../../services/timer.service';
 import { Router } from '@angular/router';
@@ -44,6 +44,15 @@ export class GeolocationPage implements OnInit {
   completed = false;
   nextRoute = '/qr-code';
 
+    constructor() {
+    effect(() => {
+      const currentDistance = this.distance();
+      if (currentDistance !== null) {
+        this.checkRadius();
+      }
+    });
+  }
+
   ngOnInit() {
     this.timerService.startTimer();
     this.location.startTracking();
@@ -52,6 +61,7 @@ export class GeolocationPage implements OnInit {
   BackToDashboard() {
     this.timerService.resetTimer();
     this.BlurActiveElement();
+    this.location.stopTracking();
 
     this.router.navigate(['/dashboard']);
   }
@@ -65,6 +75,7 @@ export class GeolocationPage implements OnInit {
     this.timerService.skipTimer('GeoLocation');
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
+    this.location.stopTracking();
   }
 
   BlurActiveElement() {
@@ -72,5 +83,10 @@ export class GeolocationPage implements OnInit {
     active?.blur();
   }
 
-
+  async checkRadius() {
+   if ((this.distance() as number) <= 30) {
+      this.completed = true;
+      await this.location.stopTracking();
+    }
+  }
 }

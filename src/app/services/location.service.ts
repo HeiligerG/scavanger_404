@@ -7,7 +7,8 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class LocationService {
 
-  targetPosition = signal( { lat: 47.035, lon: 8.294 });
+  watchId = signal<string | null>(null)
+  targetPosition = signal( { lat: 47.02712, lon: 8.30081 });
   currentPosition = signal<{ lat: number; lon: number } | null>(null);
 
   readonly distance = computed(() => {
@@ -19,7 +20,7 @@ export class LocationService {
 
   // TODO: Permission check vlt durch global definierte Funtkion
   async startTracking() {
-    await Geolocation.watchPosition({}, (pos, err) => {
+    const id = await Geolocation.watchPosition({}, (pos, err) => {
       if (err) return;
       if (pos) {
         this.currentPosition.set({
@@ -28,8 +29,17 @@ export class LocationService {
         });
       }
     });
+    this.watchId.set(id);
   }
-  // TODO: Ich bin mir nicht sicher aber es benötigt vlt auch eine stopTracking function
+
+  async stopTracking() {
+    const id = this.watchId();
+    if (id !== null) {
+      await Geolocation.clearWatch({ id: id });
+      this.watchId.set(null);
+      console.log('Tracking gestoppt');
+    }
+  }
 }
 
 function getDistanceInMeters(lat1: number, lon1: number, lat2: number, lon2: number) {
