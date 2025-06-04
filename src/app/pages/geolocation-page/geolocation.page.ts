@@ -84,7 +84,7 @@ export class GeolocationPage implements OnInit {
   }
 
   async checkRadius() {
-   if ((this.distance() as number) <= 30) {
+   if ((this.distance() as number) <= 15) {
       this.completed = true;
       await this.location.stopTracking();
     }
