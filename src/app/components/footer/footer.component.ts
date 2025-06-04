@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import {
   IonFooter,
   IonButtons,
@@ -13,6 +13,7 @@ import {
   imports: [IonButtons, IonButton, IonFooter, IonToolbar],
 })
 export class FooterComponent {
+  finalOne = input<boolean>(false);
   @Output() skipTask = new EventEmitter<void>();
   @Output() backToDashboard = new EventEmitter<void>();
 

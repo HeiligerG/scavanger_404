@@ -71,9 +71,17 @@ export class TimerService {
     return this.timeMap;
   }
 
-  getTimeForKey(key: string): string {
+  getTimeForKey(key: string): number {
     const entry = this.timeMap.get(key);
-    return entry ? entry.actualTime.toFixed(2) : '0.00';
+    return entry ? entry.actualTime : 0;
+  }
+
+  getTotalTime(): number {
+    let total = 0;
+    for (const entry of this.timeMap.values()) {
+      total += entry.actualTime;
+    }
+    return total;
   }
 
   private clearInterval(): void {
@@ -83,7 +91,7 @@ export class TimerService {
     }
   }
 
-  resetTimer(){
+  resetTimer() {
     this.clearInterval();
     this.countdown.set(0);
     this.startTimestamp = null;
@@ -102,5 +110,26 @@ export class TimerService {
     this.clearInterval();
     this.countdown.set(0);
     this.startTimestamp = null;
+  }
+
+  getResult(): string {
+    let cookieCount = 0;
+    let trashCount = 0;
+
+    for (const { actualTime, givenTime } of this.timeMap.values()) {
+      if (actualTime === 0) {
+        trashCount++;
+        continue;
+      }
+
+      const performance = actualTime / givenTime;
+      if (performance <= 1.1) {
+        cookieCount++;
+      } else {
+        trashCount++;
+      }
+    }
+
+    return `${cookieCount}x 🍪 ${trashCount}x 🗑️`;
   }
 }
