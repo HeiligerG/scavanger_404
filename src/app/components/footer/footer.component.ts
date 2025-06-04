@@ -15,9 +15,14 @@ import {
 export class FooterComponent {
   finalOne = input<boolean>(false);
   @Output() skipTask = new EventEmitter<void>();
+  @Output() finalSkip = new EventEmitter<void>();
   @Output() backToDashboard = new EventEmitter<void>();
 
   SkipTask() {
+    if (this.finalOne()) {
+      this.finalSkip.emit();
+      return;
+    }
     this.skipTask.emit();
   }
 

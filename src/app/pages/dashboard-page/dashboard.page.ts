@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Camera } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
+import { ScavengerData } from 'src/app/models/scavanger-data.mode';
+import { StorageService } from 'src/app/services/storage.service';
 
 import {
   IonButton,
@@ -22,6 +24,7 @@ import {
   IonList,
   IonLabel,
 } from '@ionic/angular/standalone';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -49,19 +52,23 @@ import {
 })
 export class DashboardPage implements OnInit {
   private router = inject(Router);
+  private storageService = inject(StorageService);
+  private userService = inject(UserService);
 
   runnerName = signal('');
 
-  previousRuns = [
-    { name: 'Jürg Jüngster', cookies: 2, trash: 2, totalTime: 112 },
-    { name: 'Jürg Jüngster', cookies: 2, trash: 2, totalTime: 112 },
-    { name: 'Jürg Jüngster', cookies: 2, trash: 2, totalTime: 112 },
-  ];
+  previousRuns: ScavengerData[] = [];
 
   ngOnInit() {
-    console.log('Dashboard initialized');
+    this.runnerName.set(this.userService.runnerName());
+    this.updateRuns();
   }
 
+  public updateRuns() {
+    this.storageService.getLeaders().then((data) => {
+      this.previousRuns = data;
+    });
+  }
   async onStartRun() {
     try {
       const geoPermStatus = await Geolocation.requestPermissions();
@@ -71,6 +78,7 @@ export class DashboardPage implements OnInit {
       const cameraGranted = camPermStatus.camera === 'granted';
 
       if (locationGranted && cameraGranted) {
+        this.userService.setRunnerName(this.runnerName());
         this.router.navigate(['/geolocation']);
       } else {
         this.router.navigate(['/dashboard']);
