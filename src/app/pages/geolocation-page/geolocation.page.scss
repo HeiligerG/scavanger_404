@@ -1,0 +1,411 @@
+.destination-card {
+  margin: 16px, 0;
+  background: linear-gradient(135deg, 
+    var(--ion-color-primary-tint) 0%, 
+    var(--ion-color-primary) 50%,
+    var(--ion-color-primary-shade) 100%
+  );
+  color: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+  
+  /* Subtle pattern overlay */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  
+  ion-card-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .destination-info {
+    .destination-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px; /* Reduziert von 20px */
+      
+      .location-icon {
+        font-size: 2rem;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      }
+      
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+    }
+    
+    .destination-details {
+      text-align: center;
+      
+      .business-name {
+        margin: 0 0 8px 0; /* Reduziert von 12px */
+        font-size: 1.4rem;
+        font-weight: 600;
+        line-height: 1.2;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+      
+      .address {
+        margin: 0 0 16px 0; /* Reduziert von 20px */
+        opacity: 0.95;
+        line-height: 1.4;
+        
+        .street {
+          display: block;
+          font-size: 1rem;
+          font-weight: 500;
+          margin-bottom: 2px;
+        }
+        
+        .city {
+          display: block;
+          font-size: 0.9rem;
+          opacity: 0.9;
+        }
+      }
+      
+      .destination-meta {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* Reduziert von 24px */
+        flex-wrap: wrap;
+        
+        .meta-item {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 10px; /* Reduziert von 8px 12px */
+          background: rgba(255, 255, 255, 0.15);
+          border-radius: 20px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          
+          .meta-icon {
+            font-size: 1rem;
+          }
+          
+          .meta-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .destination-card {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    
+    .destination-meta .meta-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+  .destination-card {
+    margin: 12px 0;
+    
+    ion-card-content {
+      padding: 12px 10px; /* Noch kompakter für mobile */
+    }
+    
+    .destination-header h2 {
+      font-size: 1.3rem;
+    }
+    
+    .business-name {
+      font-size: 1.2rem;
+    }
+    
+    .destination-meta {
+      gap: 10px; /* Reduziert von 12px */
+      
+      .meta-item {
+        padding: 5px 8px; /* Reduziert von 6px 10px */
+        
+        .meta-text {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}
+
+/* Hover effect for interactive feel */
+.destination-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.proximity-card {
+  margin: 16px 0;
+  
+  ion-card-content {
+    padding: 16px 12px; /* Angepasstes Padding für proximity-card */
+  }
+  
+  .proximity-display {
+    text-align: center;
+    
+    h3 {
+      margin: 0 0 12px 0; /* Reduziert von 16px */
+      color: var(--ion-color-medium);
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .distance-value {
+      margin-bottom: 24px; /* Reduziert von 30px */
+      transition: all 0.3s ease;
+      
+      .number {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--ion-color-primary);
+        line-height: 1;
+        transition: color 0.3s ease;
+      }
+      
+      .unit {
+        font-size: 1.1rem;
+        color: var(--ion-color-medium);
+        margin-left: 8px;
+        font-weight: 500;
+      }
+      
+      &.close .number {
+        color: var(--ion-color-warning);
+      }
+      
+      &.very-close .number {
+        color: var(--ion-color-success);
+        animation: pulse-success 2s infinite;
+      }
+    }
+    
+    .proximity-section {
+      .proximity-indicator {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px; /* Reduziert von 20px */
+        
+        .target-zone {
+          position: relative;
+          width: 120px;
+          height: 120px;
+          
+          .zone {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            
+            &.outer-zone {
+              width: 100%;
+              height: 100%;
+              border-color: var(--ion-color-primary);
+            }
+            
+            &.middle-zone {
+              width: 70%;
+              height: 70%;
+              border-color: var(--ion-color-warning);
+            }
+            
+            &.inner-zone {
+              width: 40%;
+              height: 40%;
+              border-color: var(--ion-color-success);
+            }
+            
+            &.active {
+              opacity: 0.8;
+              background: currentColor;
+              animation: zone-pulse 2s infinite;
+            }
+          }
+          
+          .target-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            z-index: 10;
+          }
+        }
+      }
+      
+      .proximity-text {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--ion-color-medium);
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.status-section {
+  margin: 16px 0; /* Reduziert von 20px */
+  
+  .status {
+    font-size: 1.1rem;
+    padding: 16px; /* Reduziert von 20px */
+    border-radius: 12px;
+    border: 2px solid var(--ion-color-primary);
+    transition: all 0.3s ease;
+    
+    .status-content {
+      display: flex;
+      align-items: center;
+      gap: 12px; /* Reduziert von 16px */
+      
+      .status-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+      }
+      
+      .status-text {
+        flex: 1;
+        
+        h4 {
+          margin: 0 0 4px 0;
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: var(--ion-color-primary-shade);
+        }
+        
+        p {
+          margin: 0;
+          font-size: 0.95rem;
+          color: var(--ion-color-medium);
+          line-height: 1.4;
+        }
+      }
+    }
+    
+    &.completed {
+      background: var(--ion-color-success-tint);
+      border-color: var(--ion-color-success);
+      animation: pulse 2s infinite;
+      
+      .status-text h4 {
+        color: var(--ion-color-success-shade);
+      }
+      
+      .status-text p {
+        color: var(--ion-color-success-shade);
+      }
+    }
+  }
+}
+
+.debug-card {
+  margin: 16px 0;
+  opacity: 0.7;
+  
+  ion-card-content {
+    padding: 12px; /* Reduziertes Padding für debug-card */
+  }
+  
+  h4 {
+    margin: 0 0 6px 0; /* Reduziert von 8px */
+    font-size: 1rem;
+    color: var(--ion-color-medium);
+  }
+  
+  p {
+    margin: 2px 0; /* Reduziert von 4px */
+    font-size: 0.85rem;
+    font-family: monospace;
+    color: var(--ion-color-medium);
+  }
+}
+
+@keyframes pulse-success {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes zone-pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+  .distance-value .number {
+    font-size: 2.8rem;
+  }
+  
+  .proximity-card ion-card-content {
+    padding: 12px 8px; /* Kompakter für mobile */
+  }
+  
+  .status-section .status {
+    padding: 12px; /* Kompakter für mobile */
+    
+    .status-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px; /* Reduziert von 12px */
+    }
+  }
+}

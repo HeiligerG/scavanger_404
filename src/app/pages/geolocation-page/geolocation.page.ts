@@ -10,7 +10,6 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonText,
   IonCard,
   IonCardContent,
 } from '@ionic/angular/standalone';
@@ -24,7 +23,6 @@ import {
     IonToolbar,
     IonTitle,
     IonContent,
-    IonText,
     IonCard,
     IonCardContent,
     TaskCompleteAlertComponent,
@@ -34,9 +32,11 @@ import {
 
 export class GeolocationPage implements OnInit {
   private location = inject(LocationService);
+  
 
   readonly distance = this.location.distance;
   readonly target = this.location.targetPosition;
+  readonly currentPosition = this.location.currentPosition;
 
   readonly timerService = inject(TimerService);
   readonly router = inject(Router);
@@ -88,5 +88,16 @@ export class GeolocationPage implements OnInit {
       this.completed = true;
       await this.location.stopTracking();
     }
+  }
+
+  getProximityMessage(): string {
+    const dist = this.distance();
+    if (dist === null) return 'Searching for your location...';
+    
+    if (dist <= 30) return '🎯 Perfect! You are within range!';
+    if (dist <= 50) return '🔥 Very close! Keep going!';
+    if (dist <= 100) return '👍 Getting closer!';
+    if (dist <= 200) return '🚶 Walk towards the target';
+    return '📍 Head towards your destination';
   }
 }
