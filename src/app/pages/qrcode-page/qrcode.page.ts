@@ -1,20 +1,20 @@
 import { Component, inject } from '@angular/core';
-import { TimerService } from '../services/timer.service';
 import { Router } from '@angular/router';
 import {
   CapacitorBarcodeScanner,
   CapacitorBarcodeScannerTypeHint,
 } from '@capacitor/barcode-scanner';
+import { TimerService } from '../../services/timer.service';
 
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
   IonButton,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
 } from '@ionic/angular/standalone';
-import { TaskCompleteAlertComponent } from '../components/task-complete-alert/task-complete-alert.component';
-import { FooterComponent } from '../components/footer/footer.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
 
 @Component({
   selector: 'app-qrcode-page',
@@ -36,7 +36,7 @@ export class QrcodePage {
   router = inject(Router);
 
   completed = false;
-  nextRoute = 'tabs/distance-tracking';
+  nextRoute = '/device-status';
 
   qrResult?: string;
   message?: string;
@@ -48,7 +48,7 @@ export class QrcodePage {
     this.timerService.resetTimer();
     this.BlurActiveElement();
 
-    this.router.navigate(['tabs/dashboard']);
+    this.router.navigate(['/dashboard']);
   }
   NextTask() {
     this.BlurActiveElement();
@@ -81,7 +81,6 @@ export class QrcodePage {
         console.log('Scanned QR Code:', ScanResult);
 
         if (ScanResult === 'M335@ICT-BZ') {
-          this.runDummyFunction();
           this.completed = true;
         } else {
           this.message = '❌ Sorry, that is the wrong one';
@@ -91,9 +90,5 @@ export class QrcodePage {
       console.error('QR Scan failed:', error);
       this.message = '⚠️ Scan failed';
     }
-  }
-
-  runDummyFunction() {
-    console.log('✅ Dummy function triggered!');
   }
 }

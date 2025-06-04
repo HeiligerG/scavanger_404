@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Device Status</ion-title>
+    <ion-title>Distance Tracking</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Device Status</ion-title>
+      <ion-title size="large">Distance Tracking</ion-title>
     </ion-toolbar>
   </ion-header>
 </ion-content>
@@ -19,7 +19,7 @@
 
 <app-task-complete-alert
   [showAlert]="completed"
-  currentTask="GeoLocation"
+  currentTask="DistanceTracking"
   (quitClicked)="BackToDashboard()"
   (continueClicked)="NextTask()"
 ></app-task-complete-alert>

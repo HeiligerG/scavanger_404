@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TimerService } from '../services/timer.service';
+import { TimerService } from '../../services/timer.service';
 import { Router } from '@angular/router';
 
 import {
@@ -8,13 +8,13 @@ import {
   IonTitle,
   IonContent,
 } from '@ionic/angular/standalone';
-import { TaskCompleteAlertComponent } from '../components/task-complete-alert/task-complete-alert.component';
-import { FooterComponent } from '../components/footer/footer.component';
+import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
-  selector: 'app-distance-tracking',
-  templateUrl: './distance-tracking.page.html',
-  styleUrls: ['./distance-tracking.page.scss'],
+  selector: 'app-device-status',
+  templateUrl: './device-status.page.html',
+  styleUrls: ['./device-status.page.scss'],
   imports: [
     IonHeader,
     IonToolbar,
@@ -24,12 +24,12 @@ import { FooterComponent } from '../components/footer/footer.component';
     FooterComponent,
   ],
 })
-export class DistanceTrackingPage implements OnInit {
+export class DeviceStatusPage implements OnInit {
   timerService = inject(TimerService);
   router = inject(Router);
 
   completed = false;
-  nextRoute = 'tabs/device-status';
+  nextRoute = '/dashboard';
 
   ngOnInit() {
     this.timerService.startTimer();
@@ -38,14 +38,14 @@ export class DistanceTrackingPage implements OnInit {
     this.timerService.resetTimer();
     this.BlurActiveElement();
 
-    this.router.navigate(['tabs/dashboard']);
+    this.router.navigate(['/dashboard']);
   }
   NextTask() {
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }
   SkipTask() {
-    this.timerService.skipTimer('DistanceTracking');
+    this.timerService.skipTimer('DeviceStatus');
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }
