@@ -1,4 +1,557 @@
-.scrollable-list {
-  max-height: 340px;
-  overflow-y: auto;
+/* Dashboard Content Styling */
+.dashboard-content {
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    rgba(var(--ion-color-primary-rgb), 0.1) 0%,
+    var(--ion-background-color) 30%,
+    var(--ion-background-color) 100%
+  );
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Welcome Section */
+.welcome-section {
+  text-align: center;
+  padding: 40px 20px 30px;
+  position: relative;
+}
+
+.welcome-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ion-color-primary), var(--ion-color-tertiary));
+  border-radius: 2px;
+  animation: welcome-line 2s ease-in-out infinite;
+}
+
+.welcome-section h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 20px 0 16px 0;
+  background: linear-gradient(135deg, 
+    var(--ion-color-primary), 
+    var(--ion-color-tertiary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  animation: welcome-glow 3s ease-in-out infinite;
+}
+
+.welcome-section p {
+  font-size: 1.1rem;
+  color: var(--ion-color-medium);
+  margin: 0;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Grid and Form Section */
+ion-grid {
+  padding: 20px 0 30px;
+}
+
+ion-row {
+  gap: 16px;
+}
+
+/* Name Input Styling */
+ion-item {
+  --background: var(--ion-item-background);
+  --border-radius: 12px;
+  --border-color: var(--ion-color-primary-tint);
+  --border-width: 2px;
+  --border-style: solid;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 56px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+ion-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(var(--ion-color-primary-rgb), 0.1), 
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+ion-item:focus-within::before {
+  left: 100%;
+}
+
+ion-item:focus-within {
+  --border-color: var(--ion-color-primary);
+  box-shadow: 0 6px 20px rgba(var(--ion-color-primary-rgb), 0.2);
+  transform: translateY(-2px);
+}
+
+ion-input {
+  font-size: 1rem;
+  font-weight: 500;
+  --placeholder-color: var(--ion-color-medium-tint);
+  --color: var(--ion-color-dark);
+}
+
+/* Start Button Styling */
+ion-button {
+  --background: linear-gradient(135deg, 
+    var(--ion-color-primary), 
+    var(--ion-color-tertiary)
+  );
+  --border-radius: 12px;
+  --box-shadow: 0 6px 20px rgba(var(--ion-color-primary-rgb), 0.3);
+  --color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  height: 56px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+ion-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+ion-button:hover::before {
+  left: 100%;
+}
+
+ion-button:hover {
+  transform: translateY(-2px);
+  --box-shadow: 0 8px 25px rgba(var(--ion-color-primary-rgb), 0.4);
+}
+
+ion-button:active {
+  transform: translateY(0);
+}
+
+/* Ultra Clean Leaderboard Card */
+.leaderboard-card {
+  margin: 24px 0;
+  border-radius: 16px;
+  background: var(--ion-item-background);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: none;
+  overflow: hidden;
+}
+
+/* Card Header */
+ion-card-header {
+  padding: 24px 24px 16px;
+  background: transparent;
+  border-bottom: none;
+  text-align: left;
+}
+
+ion-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ion-color-dark);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+ion-card-subtitle {
+  font-size: 0.9rem;
+  color: var(--ion-color-medium);
+  font-weight: 500;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* List Container */
+ion-list {
+  background: transparent;
+  padding: 0 8px 16px;
+}
+
+/* List Items */
+ion-list ion-item {
+  --background: var(--ion-color-light-tint);
+  --border-radius: 12px;
+  --border-color: transparent;
+  --border-width: 0;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --min-height: 64px;
+  margin: 0 0 8px 0;
+  transition: all 0.2s ease;
+}
+
+ion-list ion-item:last-child {
+  margin-bottom: 0;
+}
+
+ion-list ion-item:hover {
+  --background: var(--ion-color-primary-tint);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.1);
+}
+
+/* Ranking Badge */
+ion-label h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ion-color-dark);
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+ion-label h2::before {
+  content: attr(data-rank);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ion-color-medium-tint);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Stats Layout */
+ion-label p {
+  font-size: 0.9rem;
+  color: var(--ion-color-medium);
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 500;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 16px;
+}
+
+/* Individual Stats */
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+/* Top 3 Special Styling */
+ion-list ion-item:nth-child(1) {
+  --background: linear-gradient(135deg, #FFF8DC, #F5F5DC);
+  position: relative;
+}
+
+ion-list ion-item:nth-child(1) ion-label h2::before {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+ion-list ion-item:nth-child(2) ion-label h2::before {
+  background: linear-gradient(135deg, #E5E5E5, #C0C0C0);
+  box-shadow: 0 2px 8px rgba(192, 192, 192, 0.3);
+}
+
+ion-list ion-item:nth-child(3) ion-label h2::before {
+  background: linear-gradient(135deg, #DEB887, #CD853F);
+  box-shadow: 0 2px 8px rgba(205, 133, 63, 0.3);
+}
+
+/* Empty State */
+.leaderboard-empty {
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--ion-color-medium);
+}
+
+.leaderboard-empty ion-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.leaderboard-empty p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .leaderboard-card {
+    background: var(--ion-color-step-100);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  ion-list ion-item {
+    --background: var(--ion-color-step-150);
+  }
+  
+  ion-list ion-item:hover {
+    --background: var(--ion-color-step-200);
+  }
+  
+  ion-list ion-item:nth-child(1) {
+    --background: rgba(255, 215, 0, 0.1);
+  }
+  
+  ion-label h2::before {
+    background: var(--ion-color-step-300);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 576px) {
+  .leaderboard-card {
+    margin: 16px 0;
+    border-radius: 12px;
+  }
+  
+  ion-card-header {
+    padding: 20px 20px 12px;
+  }
+  
+  ion-card-title {
+    font-size: 1.2rem;
+  }
+  
+  ion-list {
+    padding: 0 4px 12px;
+  }
+  
+  ion-list ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 60px;
+    margin-bottom: 6px;
+  }
+  
+  ion-label h2 {
+    font-size: 1rem;
+    gap: 8px;
+  }
+  
+  ion-label h2::before {
+    width: 24px;
+    height: 24px;
+    font-size: 0.75rem;
+  }
+  
+  ion-label p {
+    font-size: 0.8rem;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .stat-item {
+    font-size: 0.8rem;
+    gap: 4px;
+  }
+}
+
+/* Emoji and Stats Styling */
+ion-label p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Animations */
+@keyframes welcome-line {
+  0%, 100% {
+    width: 60px;
+    opacity: 1;
+  }
+  50% {
+    width: 80px;
+    opacity: 0.8;
+  }
+}
+
+@keyframes welcome-glow {
+  0%, 100% {
+    filter: drop-shadow(0 2px 4px rgba(var(--ion-color-primary-rgb), 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 4px 8px rgba(var(--ion-color-primary-rgb), 0.4));
+  }
+}
+
+@keyframes leaderboard-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes trophy-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .dashboard-content {
+    background: linear-gradient(135deg, 
+      rgba(var(--ion-color-primary-rgb), 0.08) 0%,
+      var(--ion-background-color) 30%,
+      var(--ion-background-color) 100%
+    );
+  }
+  
+  .leaderboard-card {
+    background: var(--ion-color-step-50);
+    border-color: var(--ion-color-step-150);
+  }
+  
+  ion-item {
+    --background: var(--ion-color-step-50);
+    --border-color: var(--ion-color-step-200);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+  .welcome-section {
+    padding: 30px 16px 20px;
+  }
+  
+  .welcome-section h1 {
+    font-size: 1.8rem;
+  }
+  
+  .welcome-section p {
+    font-size: 1rem;
+  }
+  
+  ion-grid {
+    padding: 16px 0 20px;
+  }
+  
+  ion-row {
+    gap: 12px;
+  }
+  
+  ion-item {
+    --min-height: 52px;
+    --padding-start: 14px;
+    --padding-end: 14px;
+  }
+  
+  ion-button {
+    height: 52px;
+    font-size: 1rem;
+  }
+  
+  .leaderboard-card {
+    margin: 16px 0;
+  }
+  
+  ion-card-header {
+    padding: 16px 16px 12px;
+  }
+  
+  ion-card-title {
+    font-size: 1.3rem;
+  }
+  
+  ion-list ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 56px;
+  }
+  
+  ion-label h2 {
+    font-size: 1rem;
+  }
+  
+  ion-label p {
+    font-size: 0.85rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+/* Tablet Landscape */
+@media (orientation: landscape) and (min-width: 768px) {
+  .dashboard-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .welcome-section {
+    padding: 50px 40px 40px;
+  }
+  
+  ion-grid {
+    padding: 30px 0 40px;
+  }
+}
+
+/* Loading State for Start Button */
+ion-button.loading {
+  --background: var(--ion-color-medium);
+  pointer-events: none;
+}
+
+ion-button.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: button-spin 1s linear infinite;
+}
+
+@keyframes button-spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
