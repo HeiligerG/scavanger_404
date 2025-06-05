@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, effect } from '@angular/core';
+import { Component, inject, OnInit, signal, effect, ViewEncapsulation } from '@angular/core';
 import { LocationService } from 'src/app/services/location.service';
 import { DecimalPipe } from '@angular/common';
 import { TimerService } from '../../services/timer.service';
@@ -17,6 +17,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
   selector: 'app-distance-tracking',
   templateUrl: './distance-tracking.page.html',
   styleUrls: ['./distance-tracking.page.scss'],
+  encapsulation: ViewEncapsulation.None,
   imports: [
     IonHeader,
     IonToolbar,
