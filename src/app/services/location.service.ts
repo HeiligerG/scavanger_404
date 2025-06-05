@@ -7,7 +7,7 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class LocationService {
   watchId = signal<string | null>(null);
-  targetPosition = signal({ lat: 47.02712, lon: 8.30081 });
+  targetPosition = signal({ lat: 47.02750, lon: 8.30086 });
   currentPosition = signal<{ lat: number; lon: number } | null>(null);
 
   readonly distance = computed(() => {
