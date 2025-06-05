@@ -101,4 +101,12 @@ export class DashboardPage implements OnInit {
 
     return `${mins}m ${secs}s`;
   }
+
+  formatTimestamp(timestamp: string): string {
+    const date = new Date(timestamp);
+    return date.toLocaleString(undefined, {
+      dateStyle: 'short',
+      timeStyle: 'short',
+    } as any);
+  }
 }

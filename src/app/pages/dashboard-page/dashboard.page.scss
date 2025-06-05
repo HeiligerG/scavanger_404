@@ -1,7 +1,8 @@
 /* Dashboard Content Styling */
 .dashboard-content {
   min-height: 100vh;
-  background: linear-gradient(135deg, 
+  background: linear-gradient(
+    135deg,
     rgba(var(--ion-color-primary-rgb), 0.1) 0%,
     var(--ion-background-color) 30%,
     var(--ion-background-color) 100%
@@ -18,14 +19,18 @@
 }
 
 .welcome-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, var(--ion-color-primary), var(--ion-color-tertiary));
+  background: linear-gradient(
+    90deg,
+    var(--ion-color-primary),
+    var(--ion-color-tertiary)
+  );
   border-radius: 2px;
   animation: welcome-line 2s ease-in-out infinite;
 }
@@ -34,8 +39,9 @@
   font-size: 2.2rem;
   font-weight: 700;
   margin: 20px 0 16px 0;
-  background: linear-gradient(135deg, 
-    var(--ion-color-primary), 
+  background: linear-gradient(
+    135deg,
+    var(--ion-color-primary),
     var(--ion-color-tertiary)
   );
   -webkit-background-clip: text;
@@ -80,15 +86,16 @@ ion-item {
 }
 
 ion-item::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(var(--ion-color-primary-rgb), 0.1), 
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--ion-color-primary-rgb), 0.1),
     transparent
   );
   transition: left 0.5s ease;
@@ -113,8 +120,9 @@ ion-input {
 
 /* Start Button Styling */
 .startRunBtn {
-  --background: linear-gradient(135deg, 
-    var(--ion-color-primary), 
+  --background: linear-gradient(
+    135deg,
+    var(--ion-color-primary),
     var(--ion-color-tertiary)
   );
   --border-radius: 12px;
@@ -129,15 +137,16 @@ ion-input {
 }
 
 .startRunBtn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.2), 
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
     transparent
   );
   transition: left 0.5s ease;
@@ -267,6 +276,18 @@ ion-label p {
   font-size: 0.85rem;
 }
 
+.run-title {
+  display: flex;
+  align-items: center;
+}
+
+.date-text {
+  margin-left: auto;
+  color: #888;
+  font-size: 0.9em;
+}
+
+
 .stat-value {
   font-weight: 600;
   color: var(--ion-color-dark);
@@ -274,22 +295,22 @@ ion-label p {
 
 /* Top 3 Special Styling */
 ion-list ion-item:nth-child(1) {
-  --background: linear-gradient(135deg, #FFF8DC, #F5F5DC);
+  --background: linear-gradient(135deg, #fff8dc, #f5f5dc);
   position: relative;
 }
 
 ion-list ion-item:nth-child(1) ion-label h2::before {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
+  background: linear-gradient(135deg, #ffd700, #ffa500);
   box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
 }
 
 ion-list ion-item:nth-child(2) ion-label h2::before {
-  background: linear-gradient(135deg, #E5E5E5, #C0C0C0);
+  background: linear-gradient(135deg, #e5e5e5, #c0c0c0);
   box-shadow: 0 2px 8px rgba(192, 192, 192, 0.3);
 }
 
 ion-list ion-item:nth-child(3) ion-label h2::before {
-  background: linear-gradient(135deg, #DEB887, #CD853F);
+  background: linear-gradient(135deg, #deb887, #cd853f);
   box-shadow: 0 2px 8px rgba(205, 133, 63, 0.3);
 }
 
@@ -317,19 +338,19 @@ ion-list ion-item:nth-child(3) ion-label h2::before {
     background: var(--ion-color-step-100);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
-  
+
   ion-list ion-item {
     --background: var(--ion-color-step-150);
   }
-  
+
   ion-list ion-item:hover {
     --background: var(--ion-color-step-200);
   }
-  
+
   ion-list ion-item:nth-child(1) {
     --background: rgba(255, 215, 0, 0.1);
   }
-  
+
   ion-label h2::before {
     background: var(--ion-color-step-300);
   }
@@ -341,43 +362,43 @@ ion-list ion-item:nth-child(3) ion-label h2::before {
     margin: 16px 0;
     border-radius: 12px;
   }
-  
+
   ion-card-header {
     padding: 20px 20px 12px;
   }
-  
+
   ion-card-title {
     font-size: 1.2rem;
   }
-  
+
   ion-list {
     padding: 0 4px 12px;
   }
-  
+
   ion-list ion-item {
     --padding-start: 16px;
     --padding-end: 16px;
     --min-height: 60px;
     margin-bottom: 6px;
   }
-  
+
   ion-label h2 {
     font-size: 1rem;
     gap: 8px;
   }
-  
+
   ion-label h2::before {
     width: 24px;
     height: 24px;
     font-size: 0.75rem;
   }
-  
+
   ion-label p {
     font-size: 0.8rem;
     grid-template-columns: 1fr;
     gap: 8px;
   }
-  
+
   .stat-item {
     font-size: 0.8rem;
     gap: 4px;
@@ -394,7 +415,8 @@ ion-label p {
 
 /* Animations */
 @keyframes welcome-line {
-  0%, 100% {
+  0%,
+  100% {
     width: 60px;
     opacity: 1;
   }
@@ -405,7 +427,8 @@ ion-label p {
 }
 
 @keyframes welcome-glow {
-  0%, 100% {
+  0%,
+  100% {
     filter: drop-shadow(0 2px 4px rgba(var(--ion-color-primary-rgb), 0.2));
   }
   50% {
@@ -414,7 +437,8 @@ ion-label p {
 }
 
 @keyframes leaderboard-glow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -423,7 +447,8 @@ ion-label p {
 }
 
 @keyframes trophy-bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -434,18 +459,19 @@ ion-label p {
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   .dashboard-content {
-    background: linear-gradient(135deg, 
+    background: linear-gradient(
+      135deg,
       rgba(var(--ion-color-primary-rgb), 0.08) 0%,
       var(--ion-background-color) 30%,
       var(--ion-background-color) 100%
     );
   }
-  
+
   .leaderboard-card {
     background: var(--ion-color-step-50);
     border-color: var(--ion-color-step-150);
   }
-  
+
   ion-item {
     --background: var(--ion-color-step-50);
     --border-color: var(--ion-color-step-200);
@@ -457,56 +483,56 @@ ion-label p {
   .welcome-section {
     padding: 30px 16px 20px;
   }
-  
+
   .welcome-section h1 {
     font-size: 1.8rem;
   }
-  
+
   .welcome-section p {
     font-size: 1rem;
   }
-  
+
   ion-grid {
     padding: 16px 0 20px;
   }
-  
+
   ion-row {
     gap: 12px;
   }
-  
+
   ion-item {
     --min-height: 52px;
     --padding-start: 14px;
     --padding-end: 14px;
   }
-  
+
   ion-button {
     height: 52px;
     font-size: 1rem;
   }
-  
+
   .leaderboard-card {
     margin: 16px 0;
   }
-  
+
   ion-card-header {
     padding: 16px 16px 12px;
   }
-  
+
   ion-card-title {
     font-size: 1.3rem;
   }
-  
+
   ion-list ion-item {
     --padding-start: 16px;
     --padding-end: 16px;
     --min-height: 56px;
   }
-  
+
   ion-label h2 {
     font-size: 1rem;
   }
-  
+
   ion-label p {
     font-size: 0.85rem;
     flex-direction: column;
@@ -521,11 +547,11 @@ ion-label p {
     max-width: 1000px;
     margin: 0 auto;
   }
-  
+
   .welcome-section {
     padding: 50px 40px 40px;
   }
-  
+
   ion-grid {
     padding: 30px 0 40px;
   }
@@ -538,7 +564,7 @@ ion-label p {
 }
 
 .startRunBtn-button.loading::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -552,8 +578,12 @@ ion-label p {
 }
 
 @keyframes button-spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .header-with-button {
@@ -571,7 +601,7 @@ ion-label p {
   --color: var(--ion-color-medium);
   margin: 0;
   padding: 0;
-  
+
   &:hover {
     --color: var(--ion-color-primary);
   }
@@ -589,7 +619,7 @@ ion-label p {
 }
 
 .update-button {
-  --color: #C0C0C0;
+  --color: #c0c0c0;
   --color-hover: var(--ion-color-primary);
   --color-activated: var(--ion-color-primary-shade);
   margin: 0;
@@ -597,25 +627,25 @@ ion-label p {
   border-radius: 50%;
   min-width: auto;
   min-height: auto;
-  
+
   // Hover-Effekt
   &:hover {
     --color: var(--ion-color-primary);
     --background: rgba(var(--ion-color-primary-rgb), 0.1);
   }
-  
+
   ion-icon {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    color: #C0C0C0;
+    color: #c0c0c0;
     font-size: 1.2rem;
   }
-  
+
   // Beim Klicken - sanfte Rotation
   &:active ion-icon {
     transform: rotate(360deg);
     color: var(--ion-color-primary);
   }
-  
+
   // Hover-Effekt für Icon
   &:hover ion-icon {
     color: var(--ion-color-primary);
@@ -630,8 +660,12 @@ ion-label p {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 // Dark Mode Support
@@ -639,7 +673,7 @@ ion-label p {
   .update-button ion-icon {
     color: var(--ion-color-medium);
   }
-  
+
   .update-button:hover ion-icon {
     color: var(--ion-color-primary-tint);
   }

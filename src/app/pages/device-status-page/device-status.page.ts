@@ -66,6 +66,7 @@ export class DeviceStatusPage implements OnInit {
       cookies: results.cookie,
       trash: results.trash,
       totalTime: this.timerService.getTotalTime(),
+      timestamp: new Date().toISOString(),
     });
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
