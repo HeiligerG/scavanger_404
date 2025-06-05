@@ -5,6 +5,7 @@ import { Camera } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
 import { ScavengerData } from 'src/app/models/scavanger-data.mode';
 import { StorageService } from 'src/app/services/storage.service';
+import { AlertController } from '@ionic/angular';
 
 import {
   IonButton,
@@ -59,6 +60,7 @@ export class DashboardPage implements OnInit {
   private storageService = inject(StorageService);
   private userService = inject(UserService);
   private timerService = inject(TimerService);
+  private alertController = inject(AlertController);
 
   runnerName = signal('');
 
@@ -75,6 +77,9 @@ export class DashboardPage implements OnInit {
   }
 
   async onStartRun() {
+    if (this.runnerName().trim() == '') {
+      return await this.presentNameAlert();
+    }
     try {
       const geoPermStatus = await Geolocation.requestPermissions();
       const camPermStatus = await Camera.requestPermissions();
@@ -82,8 +87,7 @@ export class DashboardPage implements OnInit {
       const locationGranted = geoPermStatus.location === 'granted';
       const cameraGranted = camPermStatus.camera === 'granted';
 
-      if (locationGranted && cameraGranted && this.runnerName()) {
-        this.userService.setRunnerName(this.runnerName());
+      if (locationGranted && cameraGranted) {
         this.timerService.StartGame();
         this.router.navigate(['/geolocation']);
       } else {
@@ -93,6 +97,16 @@ export class DashboardPage implements OnInit {
       console.error('Error requesting permissions:', err);
       this.router.navigate(['/dashboard']);
     }
+  }
+
+  private async presentNameAlert() {
+    const alert = await this.alertController.create({
+      header: 'Name Required',
+      message: 'Please enter your name before starting the run.',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
 
   formatTime(totalSeconds: number): string {
