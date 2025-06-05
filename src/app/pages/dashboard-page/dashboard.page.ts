@@ -5,7 +5,6 @@ import { Camera } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
 import { ScavengerData } from 'src/app/models/scavanger-data.mode';
 import { StorageService } from 'src/app/services/storage.service';
-import { AlertController } from '@ionic/angular';
 
 import {
   IonButton,
@@ -22,6 +21,7 @@ import {
   IonList,
   IonRow,
   IonIcon,
+  AlertController
 } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
 import { addIcons } from 'ionicons';
