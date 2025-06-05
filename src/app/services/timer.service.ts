@@ -2,7 +2,7 @@ import { Injectable, computed, effect, signal, Signal } from '@angular/core';
 
 interface TimeEntry {
   givenTime: number;
-  actualTime: number;
+  actualTime: number | null;
 }
 
 @Injectable({
@@ -10,10 +10,10 @@ interface TimeEntry {
 })
 export class TimerService {
   private timeMap: Map<string, TimeEntry> = new Map([
-    ['GeoLocation', { givenTime: 300, actualTime: 0 }],
-    ['QrCode', { givenTime: 300, actualTime: 0 }],
-    ['DistanceTracking', { givenTime: 300, actualTime: 0 }],
-    ['DeviceStatus', { givenTime: 300, actualTime: 0 }],
+    ['GeoLocation', { givenTime: 300, actualTime: null }],
+    ['QrCode', { givenTime: 300, actualTime: null }],
+    ['DistanceTracking', { givenTime: 300, actualTime: null }],
+    ['DeviceStatus', { givenTime: 300, actualTime: null }],
   ]);
 
   private countdown = signal<number>(0);
@@ -21,11 +21,6 @@ export class TimerService {
   private startTimestamp: number | null = null;
 
   startTimer(duration: number = 300): void {
-    if (this.intervalId) {
-      console.warn('Timer already running');
-      return;
-    }
-
     this.countdown.set(duration);
     this.startTimestamp = performance.now();
 
@@ -46,6 +41,15 @@ export class TimerService {
       return;
     }
 
+    const entry = this.timeMap.get(key)!;
+
+    if (entry.actualTime !== null) {
+      console.warn(
+        `Timer for "${key}" was already set (value: ${entry.actualTime}).`
+      );
+      return;
+    }
+
     if (this.startTimestamp === null) {
       console.warn('Timer was not started.');
       return;
@@ -54,7 +58,6 @@ export class TimerService {
     const end = performance.now();
     const durationSeconds = (end - this.startTimestamp) / 1000;
 
-    const entry = this.timeMap.get(key)!;
     entry.actualTime = durationSeconds;
     this.timeMap.set(key, entry);
 
@@ -73,13 +76,13 @@ export class TimerService {
 
   getTimeForKey(key: string): number {
     const entry = this.timeMap.get(key);
-    return entry ? entry.actualTime : 0;
+    return entry?.actualTime ?? 0;
   }
 
   getTotalTime(): number {
     let total = 0;
     for (const entry of this.timeMap.values()) {
-      total += entry.actualTime;
+      total += entry.actualTime ?? 0;
     }
     return total;
   }
@@ -104,6 +107,12 @@ export class TimerService {
     }
 
     const entry = this.timeMap.get(key)!;
+
+    if (entry.actualTime !== null) {
+      console.warn(`Timer for "${key}" already completed or skipped.`);
+      return;
+    }
+
     entry.actualTime = 0;
     this.timeMap.set(key, entry);
 
@@ -117,27 +126,20 @@ export class TimerService {
     let trash = 0;
 
     for (const { actualTime, givenTime } of this.timeMap.values()) {
-      if (actualTime === 0) {
-        trash++;
-      } else {
-        const performance = actualTime / givenTime;
-        if (performance <= 1.1) {
-          cookie++;
-        } else {
-          trash++;
-        }
-      }
+      if (actualTime === null) trash++;
+      else if (actualTime === 0) trash++;
+      else if (actualTime / givenTime <= 1.1) cookie++;
+      else trash++;
     }
 
     return { cookie, trash };
   }
 
   clearTimeMap(): void {
-    this.timeMap.clear();
-    this.timeMap.set('GeoLocation', { givenTime: 300, actualTime: 0 });
-    this.timeMap.set('QrCode', { givenTime: 300, actualTime: 0 });
-    this.timeMap.set('DistanceTracking', { givenTime: 300, actualTime: 0 });
-    this.timeMap.set('DeviceStatus', { givenTime: 300, actualTime: 0 });
+    this.timeMap.set('GeoLocation', { givenTime: 300, actualTime: null });
+    this.timeMap.set('QrCode', { givenTime: 300, actualTime: null });
+    this.timeMap.set('DistanceTracking', { givenTime: 300, actualTime: null });
+    this.timeMap.set('DeviceStatus', { givenTime: 300, actualTime: null });
     this.resetTimer();
   }
 }

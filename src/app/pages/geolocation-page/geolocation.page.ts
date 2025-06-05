@@ -1,27 +1,22 @@
-import { Component, inject, OnInit, signal, effect } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { TimerService } from '../../services/timer.service';
-import { Router } from '@angular/router';
 
-import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
-import { FooterComponent } from '../../components/footer/footer.component';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
   IonCard,
   IonCardContent,
+  IonContent
 } from '@ionic/angular/standalone';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
   selector: 'app-geolocation-page',
   templateUrl: 'geolocation.page.html',
   styleUrls: ['geolocation.page.scss'],
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonCard,
     IonCardContent,
@@ -71,8 +66,9 @@ export class GeolocationPage implements OnInit {
     this.router.navigate([this.nextRoute]);
   }
 
-  SkipTask() {
+  async SkipTask() {
     this.timerService.skipTimer('GeoLocation');
+    await Haptics.impact({ style: ImpactStyle.Medium });
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
     this.location.stopTracking();
