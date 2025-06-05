@@ -18,6 +18,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
   selector: 'app-device-status',
@@ -65,12 +66,14 @@ export class DeviceStatusPage implements OnInit {
       cookies: results.cookie,
       trash: results.trash,
       totalTime: this.timerService.getTotalTime(),
+      timestamp: new Date().toISOString(),
     });
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }
-  finalSkip() {
+  async finalSkip() {
     this.timerService.skipTimer('DeviceStatus');
+    await Haptics.impact({ style: ImpactStyle.Medium });
     this.BlurActiveElement();
     this.clearBatteryPolling();
     this.completed = true;
