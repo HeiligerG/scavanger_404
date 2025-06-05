@@ -26,6 +26,8 @@
       </ion-row>
     </ion-grid>
 
+    <button (click)="updateRuns()">Update</button>
+
     <!-- LEADERBOARD -->
     <ion-card class="leaderboard-card">
       <ion-card-header>
@@ -34,7 +36,7 @@
       </ion-card-header>
 
       <ion-list>
-        @for (run of previousRuns; track $index) {
+        @for (run of previousRuns(); track $index) {
         <ion-item>
           <ion-label>
             <h2>{{ $index + 1 }}. {{ run.name }}</h2>
