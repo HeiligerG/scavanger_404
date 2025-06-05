@@ -88,6 +88,7 @@ export class DashboardPage implements OnInit {
       const cameraGranted = camPermStatus.camera === 'granted';
 
       if (locationGranted && cameraGranted) {
+        this.userService.setRunnerName(this.runnerName());
         this.timerService.StartGame();
         this.router.navigate(['/geolocation']);
       } else {
