@@ -4,7 +4,6 @@
       <h1>Hello, {{ runnerName() || 'Runner' }}! 👋</h1>
       <p>Ready to start your next scavenger hunt?</p>
     </div>
-
     <ion-grid>
       <ion-row class="ion-align-items-center ion-justify-content-between">
         <ion-col size="12" size-md="8">
@@ -19,22 +18,31 @@
           </ion-item>
         </ion-col>
         <ion-col size="12" size-md="4">
-          <ion-button expand="block" (click)="onStartRun()"
+          <ion-button class="startRunBtn" expand="block" (click)="onStartRun()"
             >🚀 Start Run</ion-button
           >
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <button (click)="updateRuns()">Update</button>
-
     <!-- LEADERBOARD -->
     <ion-card class="leaderboard-card">
       <ion-card-header>
-        <ion-card-title>Leaderboard</ion-card-title>
-        <ion-card-subtitle>Previous Runs</ion-card-subtitle>
+        <div class="header-with-button">
+          <div class="header-text">
+            <ion-card-title>Leaderboard</ion-card-title>
+            <ion-card-subtitle>Previous Runs</ion-card-subtitle>
+          </div>
+          <ion-button
+            fill="clear"
+            size="small"
+            (click)="updateRuns()"
+            class="update-button"
+          >
+            Update
+          </ion-button>
+        </div>
       </ion-card-header>
-
       <ion-list>
         @for (run of previousRuns(); track $index) {
         <ion-item>

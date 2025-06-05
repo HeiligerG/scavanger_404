@@ -24,9 +24,11 @@ import {
   IonItem,
   IonLabel,
   IonList,
-  IonRow
+  IonRow,
+  IonIcon,
 } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -47,8 +49,10 @@ import { UserService } from 'src/app/services/user.service';
     IonCardSubtitle,
     IonList,
     IonLabel,
+    IonIcon,
   ],
 })
+
 export class DashboardPage implements OnInit {
   private router = inject(Router);
   private storageService = inject(StorageService);
