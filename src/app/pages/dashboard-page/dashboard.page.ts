@@ -1,4 +1,9 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Camera } from '@capacitor/camera';
@@ -8,21 +13,18 @@ import { StorageService } from 'src/app/services/storage.service';
 
 import {
   IonButton,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonTitle,
-  IonToolbar,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonCard,
   IonCardHeader,
-  IonCardTitle,
   IonCardSubtitle,
-  IonList,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonInput,
+  IonItem,
   IonLabel,
+  IonList,
+  IonRow
 } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
 
@@ -32,9 +34,6 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['dashboard.page.scss'],
   imports: [
     FormsModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonItem,
     IonInput,
@@ -57,18 +56,18 @@ export class DashboardPage implements OnInit {
 
   runnerName = signal('');
 
-  previousRuns: ScavengerData[] = [];
+  previousRuns = signal<ScavengerData[]>([]);
 
   ngOnInit() {
     this.runnerName.set(this.userService.runnerName());
     this.updateRuns();
   }
 
-  public updateRuns() {
-    this.storageService.getLeaders().then((data) => {
-      this.previousRuns = data;
-    });
+  public async updateRuns() {
+    const data = await this.storageService.getLeaders();
+    this.previousRuns.set(data);
   }
+
   async onStartRun() {
     try {
       const geoPermStatus = await Geolocation.requestPermissions();
