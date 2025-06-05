@@ -7,12 +7,9 @@ import {
   IonCol,
   IonContent,
   IonGrid,
-  IonHeader,
   IonRow,
   IonSpinner,
   IonText,
-  IonTitle,
-  IonToolbar,
 } from '@ionic/angular/standalone';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
@@ -24,9 +21,6 @@ import { TaskCompleteAlertComponent } from '../../components/task-complete-alert
   templateUrl: './device-status.page.html',
   styleUrls: ['./device-status.page.scss'],
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     FooterComponent,
     IonGrid,
