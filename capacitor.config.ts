@@ -2,8 +2,13 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'temp',
-  webDir: 'www'
+  appName: 'Scavanger404',
+  webDir: 'www',
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }    
 };
 
 export default config;

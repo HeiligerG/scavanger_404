@@ -39,7 +39,7 @@
             (click)="updateRuns()"
             class="update-button"
           >
-            Update
+            <ion-icon name="refresh-outline"></ion-icon>
           </ion-button>
         </div>
       </ion-card-header>
@@ -47,13 +47,17 @@
         @for (run of previousRuns(); track $index) {
         <ion-item>
           <ion-label>
-            <h2>{{ $index + 1 }}. {{ run.name }}</h2>
+            <h2 class="run-title">
+              <span>{{ $index + 1 }}. {{ run.name }}</span
+              ><span class="date-text"> {{ formatTimestamp(run.timestamp)}}</span>
+            </h2>
             <p>
-              Cookies: 🍪 {{ run.cookies }} | Trash: 🗑️ {{ run.trash }} | Total
-              Time: {{ formatTime(run.totalTime) }}
+              Cookies: 🍪 {{ run.cookies }} | Trash: 🗑️ {{ run.trash }} | Time:
+              ⏱️ {{ formatTime(run.totalTime) }}
             </p>
           </ion-label>
         </ion-item>
+
         }
       </ion-list>
     </ion-card>

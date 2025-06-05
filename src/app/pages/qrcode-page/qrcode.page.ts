@@ -6,16 +6,19 @@ import {
 } from '@capacitor/barcode-scanner';
 import { TimerService } from '../../services/timer.service';
 
-import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonIcon,
-} from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonIcon } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
+import { addIcons } from 'ionicons';
+import {
+  qrCodeOutline,
+  cameraOutline,
+  checkmarkCircle,
+  copyOutline,
+  shareOutline,
+  informationCircleOutline,
+} from 'ionicons/icons';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
   selector: 'app-qrcode-page',
@@ -23,9 +26,6 @@ import { TaskCompleteAlertComponent } from '../../components/task-complete-alert
   styleUrls: ['./qrcode.page.scss'],
   standalone: true,
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonButton,
     TaskCompleteAlertComponent,
@@ -34,6 +34,17 @@ import { TaskCompleteAlertComponent } from '../../components/task-complete-alert
   ],
 })
 export class QrcodePage {
+  constructor() {
+    addIcons({
+      qrCodeOutline,
+      cameraOutline,
+      checkmarkCircle,
+      copyOutline,
+      shareOutline,
+      informationCircleOutline,
+    });
+  }
+
   timerService = inject(TimerService);
   router = inject(Router);
 
@@ -56,8 +67,9 @@ export class QrcodePage {
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }
-  SkipTask() {
+  async SkipTask() {
     this.timerService.skipTimer('QrCode');
+    await Haptics.impact({ style: ImpactStyle.Medium });
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }

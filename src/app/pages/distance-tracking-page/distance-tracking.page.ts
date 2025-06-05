@@ -1,17 +1,20 @@
-import { Component, inject, OnInit, signal, effect, ViewEncapsulation } from '@angular/core';
-import { LocationService } from 'src/app/services/location.service';
 import { DecimalPipe } from '@angular/common';
-import { TimerService } from '../../services/timer.service';
-import { Router } from '@angular/router';
-
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-} from '@ionic/angular/standalone';
-import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
+  Component,
+  effect,
+  inject,
+  OnInit,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { LocationService } from 'src/app/services/location.service';
+import { TimerService } from '../../services/timer.service';
+
+import { IonContent } from '@ionic/angular/standalone';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
   selector: 'app-distance-tracking',
@@ -19,9 +22,6 @@ import { FooterComponent } from '../../components/footer/footer.component';
   styleUrls: ['./distance-tracking.page.scss'],
   encapsulation: ViewEncapsulation.None,
   imports: [
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     TaskCompleteAlertComponent,
     FooterComponent,
@@ -47,15 +47,17 @@ export class DistanceTrackingPage implements OnInit {
     effect(() => {
       const current = this.currentPosition();
       const previous = this.previousPosition();
-      
+
       if (current && previous) {
         const stepDistance = this.location.getDistanceInMeters(
-          previous.lat, previous.lon,
-          current.lat, current.lon
+          previous.lat,
+          previous.lon,
+          current.lat,
+          current.lon
         );
-        this.totalDistance.update(total => total + stepDistance);
+        this.totalDistance.update((total) => total + stepDistance);
       }
-      
+
       if (current) {
         this.previousPosition.set(current);
       }
@@ -87,8 +89,9 @@ export class DistanceTrackingPage implements OnInit {
     this.router.navigate([this.nextRoute]);
   }
 
-  SkipTask() {
+  async SkipTask() {
     this.timerService.skipTimer('DistanceTracking');
+    await Haptics.impact({ style: ImpactStyle.Medium });
     this.BlurActiveElement();
     this.location.stopTracking();
     this.router.navigate([this.nextRoute]);

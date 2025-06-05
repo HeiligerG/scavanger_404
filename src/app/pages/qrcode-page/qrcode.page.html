@@ -1,5 +1,4 @@
 <ion-content [fullscreen]="true" class="qr-page-content">
-
   <div class="qr-scanner-container">
     <!-- Hero Section -->
     <div class="hero-section">
@@ -13,12 +12,13 @@
 
     <!-- Action Section -->
     <div class="action-section">
-      <ion-button 
-        expand="block" 
-        size="large" 
-        shape="round" 
-        (click)="scanQrCode()" 
-        class="scan-button">
+      <ion-button
+        expand="block"
+        size="large"
+        shape="round"
+        (click)="scanQrCode()"
+        class="scan-button"
+      >
         <ion-icon name="camera-outline" slot="start"></ion-icon>
         QR Code Scannen
       </ion-button>
@@ -26,39 +26,22 @@
 
     <!-- Result Section -->
     @if (message) {
-      <div class="result-section">
-        <div class="result-card">
-          <div class="result-header">
-            <ion-icon name="checkmark-circle" class="success-icon"></ion-icon>
-            <h3>Scan Erfolgreich</h3>
-          </div>
-          <div class="result-content">
-            <p class="result-message">{{ message }}</p>
-          </div>
-          <div class="result-actions">
-            <ion-button 
-              fill="clear" 
-              size="small"
-              class="action-button">
-              <ion-icon name="copy-outline" slot="start"></ion-icon>
-              Kopieren
-            </ion-button>
-            <ion-button 
-              fill="clear" 
-              size="small"
-              class="action-button">
-              <ion-icon name="share-outline" slot="start"></ion-icon>
-              Teilen
-            </ion-button>
-          </div>
-        </div>
-      </div>
+    <div class="scan-message">
+      <ion-icon
+        name="information-circle-outline"
+        class="message-icon"
+      ></ion-icon>
+      <span>{{ message }}</span>
+    </div>
     }
 
     <!-- Info Section -->
     <div class="info-section">
       <div class="info-card">
-        <ion-icon name="information-circle-outline" class="info-icon"></ion-icon>
+        <ion-icon
+          name="information-circle-outline"
+          class="info-icon"
+        ></ion-icon>
         <div class="info-content">
           <h4>Tipps für bessere Scans</h4>
           <ul class="tips-list">

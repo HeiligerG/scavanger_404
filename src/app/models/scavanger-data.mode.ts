@@ -3,4 +3,5 @@ export interface ScavengerData {
   cookies: number;
   trash: number;
   totalTime: number;
+  timestamp: string;
 }
