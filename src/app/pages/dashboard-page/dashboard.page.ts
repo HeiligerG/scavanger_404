@@ -25,6 +25,7 @@ import {
 import { UserService } from 'src/app/services/user.service';
 import { addIcons } from 'ionicons';
 import { refreshOutline } from 'ionicons/icons';
+import { TimerService } from '../../services/timer.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -57,6 +58,7 @@ export class DashboardPage implements OnInit {
   private router = inject(Router);
   private storageService = inject(StorageService);
   private userService = inject(UserService);
+  private timerService = inject(TimerService);
 
   runnerName = signal('');
 
@@ -82,6 +84,7 @@ export class DashboardPage implements OnInit {
 
       if (locationGranted && cameraGranted) {
         this.userService.setRunnerName(this.runnerName());
+        this.timerService.StartGame();
         this.router.navigate(['/geolocation']);
       } else {
         this.router.navigate(['/dashboard']);

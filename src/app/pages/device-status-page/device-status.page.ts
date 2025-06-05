@@ -67,7 +67,7 @@ export class DeviceStatusPage implements OnInit {
       name: this.userService.runnerName(),
       cookies: results.cookie,
       trash: results.trash,
-      totalTime: this.timerService.getTotalTime(),
+      totalTime: this.timerService.getTotalTimer(),
       timestamp: new Date().toISOString(),
     };
 
@@ -93,6 +93,7 @@ export class DeviceStatusPage implements OnInit {
     this.BlurActiveElement();
     this.clearBatteryPolling();
     this.completed = true;
+    this.timerService.EndGame();
   }
 
   BlurActiveElement() {
@@ -107,6 +108,7 @@ export class DeviceStatusPage implements OnInit {
         if (batteryInfo.isCharging) {
           this.clearBatteryPolling();
           this.completed = true;
+          this.timerService.EndGame();
         }
       } catch (error) {
         console.error('Failed to get battery info:', error);

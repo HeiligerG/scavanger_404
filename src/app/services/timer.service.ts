@@ -1,4 +1,4 @@
-import { Injectable, computed, effect, signal, Signal } from '@angular/core';
+import { Injectable, signal, Signal } from '@angular/core';
 
 interface TimeEntry {
   givenTime: number;
@@ -16,9 +16,36 @@ export class TimerService {
     ['DeviceStatus', { givenTime: 300, actualTime: null }],
   ]);
 
+  private totalTimer = signal<number>(0);
   private countdown = signal<number>(0);
+  private totalIntervalId: any = null;
   private intervalId: any = null;
   private startTimestamp: number | null = null;
+
+  StartGame(): void {
+    this.totalTimer.set(0);
+
+    this.totalIntervalId = setInterval(() => {
+      const current = this.totalTimer();
+      this.totalTimer.set(current + 1);
+    }, 1000);
+  }
+
+  EndGame(): void {
+    if (this.totalIntervalId) {
+      clearInterval(this.totalIntervalId);
+      this.totalIntervalId = null;
+    }
+  }
+
+  getTotalTimer(): number {
+    return this.totalTimer();
+  }
+
+  resetTotalTimer(): void {
+    this.EndGame();
+    this.totalTimer.set(0);
+  }
 
   startTimer(duration: number = 300): void {
     this.countdown.set(duration);
@@ -83,8 +110,11 @@ export class TimerService {
     let total = 0;
     for (const entry of this.timeMap.values()) {
       total += entry.actualTime ?? 0;
+      console.log(
+        `Key: ${entry.givenTime}, Actual Time: ${entry.actualTime ?? 0}`
+      );
     }
-    return total;
+    return Math.round(total);
   }
 
   private clearInterval(): void {
