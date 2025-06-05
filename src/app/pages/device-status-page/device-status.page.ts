@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Device } from '@capacitor/device';
 import { TimerService } from '../../services/timer.service';
+import { CapacitorHttp, HttpResponse } from '@capacitor/core';
 
 import {
   IonCol,
@@ -19,6 +20,7 @@ import { UserService } from 'src/app/services/user.service';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TaskCompleteAlertComponent } from '../../components/task-complete-alert/task-complete-alert.component';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import { ScavengerData } from 'src/app/models/scavanger-data.mode';
 
 @Component({
   selector: 'app-device-status',
@@ -61,13 +63,27 @@ export class DeviceStatusPage implements OnInit {
   }
   submitScavange() {
     const results = this.timerService.getResultCounts();
-    this.storageService.saveGameData({
+    const localBody: ScavengerData = {
       name: this.userService.runnerName(),
       cookies: results.cookie,
       trash: results.trash,
       totalTime: this.timerService.getTotalTime(),
       timestamp: new Date().toISOString(),
-    });
+    };
+
+    this.storageService.saveGameData(localBody);
+
+    const body = `entry.1860183935=${encodeURIComponent(
+      localBody.name
+    )}&entry.564282981=${encodeURIComponent(
+      localBody.cookies
+    )}&entry.1079317865=${encodeURIComponent(
+      localBody.trash
+    )}&entry.985590604=${encodeURIComponent(localBody.totalTime)}`;
+
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+
+    this.postRun(body);
     this.BlurActiveElement();
     this.router.navigate([this.nextRoute]);
   }
@@ -103,5 +119,19 @@ export class DeviceStatusPage implements OnInit {
       clearInterval(this.batteryCheckInterval);
       this.batteryCheckInterval = null;
     }
+  }
+
+  async postRun(body: any) {
+    const url =
+      'https://docs.google.com/forms/u/0/d/e/1FAIpQLSc9v68rbCckYwcIekRLOaVZ0Qdm3eeh1xCEkgpn3d7pParfLQ/formResponse';
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+    const options = {
+      url: url,
+      headers: headers,
+      data: body,
+    };
+
+    const response = await CapacitorHttp.post(options);
+    console.log('RESPONSE STATUS POST', response.status);
   }
 }
