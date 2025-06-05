@@ -1,9 +1,4 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal
-} from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Camera } from '@capacitor/camera';
@@ -29,6 +24,7 @@ import {
 } from '@ionic/angular/standalone';
 import { UserService } from 'src/app/services/user.service';
 import { addIcons } from 'ionicons';
+import { refreshOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -52,8 +48,12 @@ import { addIcons } from 'ionicons';
     IonIcon,
   ],
 })
-
 export class DashboardPage implements OnInit {
+  constructor() {
+    addIcons({
+      refreshOutline,
+    });
+  }
   private router = inject(Router);
   private storageService = inject(StorageService);
   private userService = inject(UserService);

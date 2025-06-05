@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { AlertController } from '@ionic/angular/standalone';
 import { TimerService } from '../../services/timer.service';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 @Component({
   selector: 'app-task-complete-alert',
@@ -38,6 +39,7 @@ export class TaskCompleteAlertComponent implements OnChanges {
   }
 
   private async presentAlert() {
+    await Haptics.impact({ style: ImpactStyle.Medium });
     const alert = await this.alertController.create({
       header: 'You did it!!',
       subHeader: 'Your Time was:',
@@ -67,11 +69,11 @@ export class TaskCompleteAlertComponent implements OnChanges {
   }
 
   private async presentFinalAlert() {
+    await Haptics.impact({ style: ImpactStyle.Medium });
     const totalTime = this.timerService.getTotalTime();
     const result = this.timerService.getResultCounts();
 
-    const message = `Total Time: ${this.formatTime(totalTime)}\n` +
-                    `Cookies: 🍪 ${result.cookie} | Trash: 🗑️ ${result.trash}`;
+    const message = `🍪 ${result.cookie} | 🗑️ ${result.trash}`;
 
     const alert = await this.alertController.create({
       header: 'Scavenge Complete!',

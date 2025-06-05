@@ -10,8 +10,9 @@
   flex-direction: column;
   padding: 20px;
   justify-content: space-between;
-  background: linear-gradient(135deg, 
-    var(--ion-color-primary-tint) 0%, 
+  background: linear-gradient(
+    135deg,
+    var(--ion-color-primary-tint) 0%,
     var(--ion-background-color) 30%,
     var(--ion-background-color) 100%
   );
@@ -77,7 +78,11 @@
 }
 
 .scan-button {
-  --background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-primary-shade));
+  --background: linear-gradient(
+    135deg,
+    var(--ion-color-primary),
+    var(--ion-color-primary-shade)
+  );
   --box-shadow: 0 8px 24px rgba(var(--ion-color-primary-rgb), 0.3);
   --border-radius: 50px;
   height: 60px;
@@ -89,13 +94,18 @@
 }
 
 .scan-button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.5s;
 }
 
@@ -223,7 +233,8 @@
 
 /* Animations */
 @keyframes gentle-bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -256,18 +267,19 @@
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   .qr-scanner-container {
-    background: linear-gradient(135deg, 
-      rgba(var(--ion-color-primary-rgb), 0.1) 0%, 
+    background: linear-gradient(
+      135deg,
+      rgba(var(--ion-color-primary-rgb), 0.1) 0%,
       var(--ion-background-color) 30%,
       var(--ion-background-color) 100%
     );
   }
-  
+
   .info-card {
     background: var(--ion-color-step-50);
     border-color: var(--ion-color-step-150);
   }
-  
+
   .result-message {
     background: rgba(0, 0, 0, 0.3);
     color: var(--ion-color-light);
@@ -279,43 +291,43 @@
   .qr-scanner-container {
     padding: 16px;
   }
-  
+
   .hero-section {
     padding: 20px 16px;
     min-height: 250px;
   }
-  
+
   .scanner-icon {
     font-size: 4rem;
   }
-  
+
   .hero-title {
     font-size: 1.8rem;
   }
-  
+
   .hero-subtitle {
     font-size: 1rem;
   }
-  
+
   .scan-button {
     height: 56px;
     font-size: 1rem;
   }
-  
+
   .quick-actions {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .secondary-button {
     max-width: none;
   }
-  
+
   .result-card,
   .info-card {
     padding: 16px;
   }
-  
+
   .result-actions {
     flex-direction: column;
     gap: 4px;
@@ -328,17 +340,17 @@
     flex-direction: row;
     align-items: center;
   }
-  
+
   .hero-section {
     flex: 1;
     min-height: auto;
   }
-  
+
   .action-section {
     flex: 1;
     max-width: 400px;
   }
-  
+
   .info-section {
     position: absolute;
     bottom: 20px;
@@ -346,4 +358,27 @@
     right: 20px;
     margin-top: 0;
   }
+}
+
+.scan-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--ion-color-danger);
+  border: 1px solid var(--ion-color-danger);
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  animation: slide-up 0.3s ease-out;
+}
+
+.message-icon {
+  font-size: 1.4rem;
+  color: var(--ion-color-danger);
 }
