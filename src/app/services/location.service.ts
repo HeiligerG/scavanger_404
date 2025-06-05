@@ -1,7 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 
-// TODO: Besseres Error handling
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +21,6 @@ export class LocationService {
     );
   });
 
-  // TODO: Permission check vlt durch global definierte Funtkion
   async startTracking() {
     const id = await Geolocation.watchPosition({}, (pos, err) => {
       if (err) return;
